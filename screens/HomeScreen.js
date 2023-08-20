@@ -1,7 +1,8 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import styles from '../components/Style';
 // import { Cell, Section, TableView } from 'react-native-tableview-simple';
-
 // const { width } = Dimensions.get('screen');
 
 export default function HomeScreen({ navigation: { navigate }, props }){
@@ -55,12 +56,3 @@ export default function HomeScreen({ navigation: { navigate }, props }){
         </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-});
