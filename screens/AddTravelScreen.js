@@ -12,8 +12,8 @@ export default function AddTravelScreen ({ navigation: { navigate }, props }){
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView style={{height: "100%"}}>
-                <Text>hello world</Text>
+            <ScrollView style={styles.scrollView}>
+                <Text>Hello World</Text>
             </ScrollView>
         </SafeAreaView>
     );
