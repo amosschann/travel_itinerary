@@ -1,6 +1,5 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button } from 'react-native';
-import { useRoute } from '@react-navigation/native';
 import styles from '../components/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { Cell, Section, TableView } from 'react-native-tableview-simple';

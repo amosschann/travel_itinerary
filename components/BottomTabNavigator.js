@@ -22,13 +22,11 @@ const BottomTabNavigator = () => {
             : 'account-circle-outline';
           }
     
-    return <MaterialCommunityIcons name={iconName} size={size} color={color}     />;
-       },
+        return <MaterialCommunityIcons name={iconName} size={size} color={color}/>;
+      },       
+      activeTintColor: 'royalblue',
+      inactiveTintColor: 'gray',
     })}
-    tabBarOptions={{
-    activeTintColor: 'royalblue',
-    inactiveTintColor: 'gray',
-    }}
     >
       {HomeTabScreen()}
       {ProfileTabScreen()}

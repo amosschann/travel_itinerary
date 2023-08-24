@@ -14,7 +14,6 @@ export default function App() {
   return (
     <NavigationContainer>
         <BottomTabNavigator
-
         /> 
       <StatusBar barStyle="default" />
     </NavigationContainer>
