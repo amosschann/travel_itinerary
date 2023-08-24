@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button } from 'react-native';
 import styles from '../components/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import TravelTable from '../components/TravelTable'
 // import { Cell, Section, TableView } from 'react-native-tableview-simple';
 // const { width } = Dimensions.get('screen');
 
@@ -9,7 +10,7 @@ export default function HomeScreen({ navigation: { navigate }, props }){
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
-
+                <TravelTable/>
                 <Text>Test Home Pdagee</Text>
                 <Button
                     style={styles.backgroundWhite}

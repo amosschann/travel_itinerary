@@ -19,7 +19,7 @@ export function HomeStackScreen() {
           name="Home" 
           component={HomeScreen} 
           options={{
-            headerShown: false
+            title: "Home"
           }}
         />
         {travelStackScreen()}
@@ -40,7 +40,7 @@ export function UserProfileStackScreen() {
           name="ProfileSettings" 
           component={UserProfileScreen}
           options={{ 
-            headerShown: false 
+            title: "Profile Settings"
           }}
         />
       </Stack.Navigator>
