@@ -10,39 +10,45 @@ export default function HomeScreen({ navigation: { navigate }, props }){
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
-                <TravelTable/>
-                <Text>Test Home Pdagee</Text>
+                <View style={styles.paddingUpDown5}></View>
+                <TravelTable 
+                    prop={{type:"default1", headerTitle: "Upcoming Travels"}}
+                />
+                <View style={styles.paddingUpDown5}></View>
+                <TravelTable 
+                    prop={{type:"default2", headerTitle: "Completed Travels"}}
+                />
                 <Button
                     style={styles.backgroundWhite}
-                    onPress={() =>navigate('ProfileSettings')}
+                    onPress={() =>navigate('ProfileSettingsScreen')}
                     title="Navigate to user settings"
                     color="#841584"
                     accessibilityLabel="test"
                 />
                 <Button
                     style={styles.backgroundWhite}
-                    onPress={() =>navigate('Travels')}
+                    onPress={() =>navigate('TravelsScreen')}
                     title="Navigate to user Travels"
                     color="#841584"
                     accessibilityLabel="test"
                 />
                 <Button
                     style={styles.backgroundWhite}
-                    onPress={() =>navigate('Itenary')}
+                    onPress={() =>navigate('ItenaryScreen')}
                     title="Navigate to Itenary"
                     color="#841584"
                     accessibilityLabel="test"
                 />
                 <Button
                      style={styles.backgroundWhite}
-                    onPress={() =>navigate('AddTravel')}
+                    onPress={() =>navigate('AddTravelScreen')}
                     title="Navigate to Add Travel"
                     color="#841584"
                     accessibilityLabel="test"
                 />
                 <Button
                     style={styles.backgroundWhite}
-                    onPress={() =>navigate('AddActivity')}
+                    onPress={() =>navigate('AddActivityScreen')}
                     title="Navigate to Add Activity"
                     color="#841584"
                     accessibilityLabel="test"
@@ -69,7 +75,7 @@ export default function HomeScreen({ navigation: { navigate }, props }){
                 />
                 <Button
                     style={styles.backgroundWhite}
-                    onPress={() =>navigate('SignUp')}
+                    onPress={() =>navigate('SignUpScreen')}
                     title="Navigate to Sign Up"
                     color="#841584"
                     accessibilityLabel="test"
