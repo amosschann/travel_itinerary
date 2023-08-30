@@ -3,8 +3,7 @@ import HomeScreen from '../screens/HomeScreen'
 import UserProfileScreen from '../screens/UserProfileScreen';
 import TravelsScreen from '../screens/TravelsScreen';
 import ItenaryScreen from '../screens/ItenaryScreen';
-import AddTravelScreen from '../screens/AddTravelScreen';
-import AddActivityScreen from '../screens/AddActivityScreen';
+import AddScreen from '../screens/AddScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 
@@ -24,8 +23,6 @@ export function HomeStackScreen() {
         />
         {travelStackScreen()}
         {ItenaryStackScreen()}
-        {AddTravelStackScreen()}
-        {AddActivityStackScreen()}
         {SignUpStackScreen()}
 
         </HomeStack.Navigator>
@@ -63,6 +60,21 @@ export function LoginStackScreen() {
   );
 }
 
+export function AddStackScreen() {
+  const AddStack = createNativeStackNavigator();
+  return(
+    <AddStack.Navigator>
+      <AddStack.Screen 
+        name="AddScreen" 
+        component={AddScreen}
+        options={{ 
+          title: 'Add' 
+        }}
+      />
+    </AddStack.Navigator>
+  );
+}
+
 
 //**Reusable stack components */
 
@@ -87,32 +99,6 @@ export function ItenaryStackScreen() {
       component={ItenaryScreen}
       options={{ 
         title: 'Itenary' 
-      }}
-    />
-  );
-}
-
-export function AddTravelStackScreen() {
-  const TravelStack = createNativeStackNavigator();
-  return(
-    <TravelStack.Screen 
-      name="AddTravelScreen" 
-      component={AddTravelScreen}
-      options={{ 
-        title: 'Add Travel' 
-      }}
-    />
-  );
-}
-
-export function AddActivityStackScreen() {
-  const ActivityStack = createNativeStackNavigator();
-  return(
-    <ActivityStack.Screen 
-      name="AddActivityScreen" 
-      component={AddActivityScreen}
-      options={{ 
-        title: 'Add Activity' 
       }}
     />
   );

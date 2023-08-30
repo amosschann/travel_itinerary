@@ -67,6 +67,9 @@ const styles = StyleSheet.create({
       height30: {
         height: '30%',
       },
+      heightVW2: {
+        height: height*0.02
+      },
       //padding
       paddingLeft0: {
         paddingLeft: 0

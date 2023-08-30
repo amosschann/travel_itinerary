@@ -5,7 +5,7 @@ import styles from '../components/Style';
 // import { Cell, Section, TableView } from 'react-native-tableview-simple';
 // const { width } = Dimensions.get('screen');
 
-export default function AddTravelScreen ({ navigation: { navigate }, props }){
+export default function AddScreen ({ navigation: { navigate }, props }){
     // const route = useRoute();
     // // Access the 'names' parameter from the route
     // const { names } = route.params;

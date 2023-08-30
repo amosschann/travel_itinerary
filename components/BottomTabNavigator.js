@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { HomeTabScreen, ProfileTabScreen } from "../navigation/Tabs"
+import { HomeTabScreen, ProfileTabScreen, AddTabScreen } from "../navigation/Tabs"
 
 const Tab = createBottomTabNavigator();
 
@@ -20,6 +20,10 @@ const BottomTabNavigator = () => {
             iconName = focused
             ? 'account-circle'
             : 'account-circle-outline';
+          } else if (route.name === 'Add') {
+            iconName = focused
+            ? 'plus-circle'
+            : 'plus-circle-outline';
           }
     
         return <MaterialCommunityIcons name={iconName} size={size} color={color}/>;
@@ -29,6 +33,7 @@ const BottomTabNavigator = () => {
     })}
     >
       {HomeTabScreen()}
+      {AddTabScreen()}
       {ProfileTabScreen()}
     </Tab.Navigator>
   );

@@ -10,11 +10,11 @@ export default function HomeScreen({ navigation: { navigate }, props }){
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
-                <View style={styles.paddingUpDown5}></View>
+                <View style={[styles.width100, styles.heightVW2]}></View>
                 <TravelTable 
                     prop={{type:"default1", headerTitle: "Upcoming Travels"}}
                 />
-                <View style={styles.paddingUpDown5}></View>
+                <View style={[styles.width100, styles.heightVW2]}></View>
                 <TravelTable 
                     prop={{type:"default2", headerTitle: "Completed Travels"}}
                 />
@@ -40,16 +40,9 @@ export default function HomeScreen({ navigation: { navigate }, props }){
                     accessibilityLabel="test"
                 />
                 <Button
-                     style={styles.backgroundWhite}
-                    onPress={() =>navigate('AddTravelScreen')}
-                    title="Navigate to Add Travel"
-                    color="#841584"
-                    accessibilityLabel="test"
-                />
-                <Button
                     style={styles.backgroundWhite}
-                    onPress={() =>navigate('AddActivityScreen')}
-                    title="Navigate to Add Activity"
+                    onPress={() =>navigate('AddScreen')}
+                    title="Navigate to Add"
                     color="#841584"
                     accessibilityLabel="test"
                 />
