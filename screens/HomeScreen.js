@@ -18,6 +18,7 @@ export default function HomeScreen({ navigation: { navigate }, props }){
                 <TravelTable 
                     prop={{type:"default2", headerTitle: "Completed Travels"}}
                 />
+                <View style={[styles.width100, styles.heightVW2]}></View>
                 <Button
                     style={styles.backgroundWhite}
                     onPress={() =>navigate('ProfileSettingsScreen')}

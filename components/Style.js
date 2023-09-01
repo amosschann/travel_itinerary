@@ -28,8 +28,17 @@ const styles = StyleSheet.create({
       flex3: {
         flex: 3
       },
+      flex4: {
+        flex: 4
+      },
+      alignStretch: {
+        alignSelf: 'stretch'
+      },
       flexRow: {
         flexDirection: 'row'
+      },
+      flexColumn: {
+        flexDirection: 'column'
       },
       //justify content
       justifyBottom: {
@@ -45,6 +54,9 @@ const styles = StyleSheet.create({
       width100: {
         width: '100%'
       },
+      width80: {
+        width: '80%'
+      },
       width70: {
         width: '70%'
       },
@@ -53,6 +65,9 @@ const styles = StyleSheet.create({
       },
       width30: {
         width: '30%',
+      },
+      width20: {
+        width: '20%'
       },
       //height
       height100: {
@@ -67,8 +82,32 @@ const styles = StyleSheet.create({
       height30: {
         height: '30%',
       },
+      height25: {
+        height: '25%'
+      },
       heightVW2: {
         height: height*0.02
+      },
+      heightVW5: {
+        height: height*0.05
+      },
+      heightVW9: {
+        height: height*0.09
+      },
+      heightVW10: {
+        height: height * 0.10
+      },
+      heightVW20: {
+        height: height * 0.2
+      },
+      heightVW25: {
+        height: height * 0.25
+      },
+      heightVW35: {
+        height: height * 0.35
+      },
+      heightVW40: {
+        height: height * 0.4
       },
       //padding
       paddingLeft0: {
@@ -80,6 +119,9 @@ const styles = StyleSheet.create({
       paddingUpDown5: {
         paddingTop: 5,
         paddingBottom: 5,
+      },
+      paddingLeftVW10: {
+        paddingLeft: width*0.1
       },
       //borders
       borderBlack: {
@@ -113,6 +155,9 @@ const styles = StyleSheet.create({
       },
       font15: {
         fontSize: 15,
+      },
+      fontWeightBold: {
+        fontWeight: 'bold'
       },
       //travel table
       travelTable: {
