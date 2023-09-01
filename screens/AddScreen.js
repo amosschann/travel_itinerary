@@ -12,7 +12,7 @@ export default function AddScreen ({ navigation: { navigate }, props }){
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.scrollView}>
+            <ScrollView style={styles.mainView}>
                 <Text>Hello World</Text>
             </ScrollView>
         </SafeAreaView>

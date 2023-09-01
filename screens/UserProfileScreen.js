@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ImageBackground } from 'react-native';
 import { Cell, Section, TableView } from 'react-native-tableview-simple';
 import { useRoute } from '@react-navigation/native';
 import UserProfileRow from '../components/UserProfileRow';
@@ -15,36 +15,25 @@ export default function UserProfileScreen ({ navigation: { navigate }, props }){
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={[styles.scrollView, styles.flexColumn]}>
+            <View style={[styles.mainView, styles.flexColumn]}>
                 <View style={[styles.flex1]}>
-                    <TableView>
-                        <Section
-                        key="item"
-                        hideSurroundingSeparators={true}
-                        style={styles.flex1}
+                
+                    <View style={[styles.flex4, styles.width100]}>
+                        <ImageBackground 
+                            source={require('../assets/profileBackground.jpg')} 
+                            style={[styles.width, styles.flex1, styles.justifyVerticalBottom, styles.justifyHorizontalCenter]} 
+                            imageStyle= {{opacity:0.3}}
                         >
-                            <Cell
-                                key="UserProfilePic"
-                                contentContainerStyle={[]}
-                                cellContentView={
-                                    <View style={[styles.justifyHorizontalCenter, styles.heightVW25, styles.width100,
-                                                styles.justifyVerticalCenter]}>
-                                        <Text style={[styles.font20]}>PHOTO</Text>
-                                    </View>
-                                }
-                            />
-                            <Cell
-                                key="UserProfileInfo"
-                                contentContainerStyle={[]}
-                                cellContentView={
-                                    <View style={[styles.justifyHorizontalCenter, styles.heightVW5, styles.width100,
-                                                 styles.justifyVerticalCenter]}>
-                                        <Text style={[styles.font15, styles.fontWeightBold]}>UserName</Text>
-                                    </View>
-                                }
-                            />
-                        </Section>
-                    </TableView>
+                            <Image source={require('../assets/travelphoto1.jpg')} style={styles.profilePic}/>
+                        </ImageBackground>                   
+                    </View>
+                                        
+                    <View style={[styles.justifyHorizontalCenter, styles.flex1, styles.width100,
+                                    styles.justifyVerticalCenter]}>
+                        <Text style={[styles.font15, styles.fontWeightBold, styles.marginBottom5]}>Example Name</Text>
+                        <Text style={[styles.font15]}>example@gmail.com</Text>
+                    </View>
+                    
                 </View>
 
                 <View style={[styles.flex1]}>

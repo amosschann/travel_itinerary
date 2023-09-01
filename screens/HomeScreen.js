@@ -9,45 +9,37 @@ import TravelTable from '../components/TravelTable'
 export default function HomeScreen({ navigation: { navigate }, props }){
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.scrollView}>
-                <View style={[styles.width100, styles.heightVW2]}></View>
-                <TravelTable 
-                    prop={{type:"default1", headerTitle: "Upcoming Travels"}}
+            <View style={[styles.mainView, styles.flexColumn]}>
+                <View style={styles.mainView}>
+                    <TravelTable
+                        props={{
+                            header: true,
+                            key:"upcomingTravel",
+                            type:"default1", 
+                            headerTitle: "Upcoming Travels", 
+                            tripName: "No Upcoming Travels",
+                            tripLocation: "Add Your Travels",
+                            navigate: navigate, 
+                            navigateType: "Upcoming"
+                        }}
+                    />
+                </View>
+                <View style={styles.mainView}>
+                <TravelTable
+                    props={{
+                        header: true,
+                        key:"completedTravel",
+                        type:"default2", 
+                        headerTitle: "Completed Travels", 
+                        tripName: "No Completed Travels",
+                        tripLocation: "Add Your Travels",
+                        navigate: navigate, 
+                        navigateType: "Completed"
+                        }}
                 />
-                <View style={[styles.width100, styles.heightVW2]}></View>
-                <TravelTable 
-                    prop={{type:"default2", headerTitle: "Completed Travels"}}
-                />
-                <View style={[styles.width100, styles.heightVW2]}></View>
-                <Button
-                    style={styles.backgroundWhite}
-                    onPress={() =>navigate('ProfileSettingsScreen')}
-                    title="Navigate to user settings"
-                    color="#841584"
-                    accessibilityLabel="test"
-                />
-                <Button
-                    style={styles.backgroundWhite}
-                    onPress={() =>navigate('TravelsScreen')}
-                    title="Navigate to user Travels"
-                    color="#841584"
-                    accessibilityLabel="test"
-                />
-                <Button
-                    style={styles.backgroundWhite}
-                    onPress={() =>navigate('ItenaryScreen')}
-                    title="Navigate to Itenary"
-                    color="#841584"
-                    accessibilityLabel="test"
-                />
-                <Button
-                    style={styles.backgroundWhite}
-                    onPress={() =>navigate('AddScreen')}
-                    title="Navigate to Add"
-                    color="#841584"
-                    accessibilityLabel="test"
-                />
-                <Button
+                </View>
+
+                {/* <Button
                     style={styles.backgroundWhite}
                     onPress={async () => {
                         try {
@@ -66,16 +58,9 @@ export default function HomeScreen({ navigation: { navigate }, props }){
                     title="Navigate to Login"
                     color="#841584"
                     accessibilityLabel="test"
-                />
-                <Button
-                    style={styles.backgroundWhite}
-                    onPress={() =>navigate('SignUpScreen')}
-                    title="Navigate to Sign Up"
-                    color="#841584"
-                    accessibilityLabel="test"
-                />
+                /> */}
 
-            </ScrollView>
+            </View>
 
 
         </SafeAreaView>

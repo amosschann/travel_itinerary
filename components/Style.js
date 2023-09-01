@@ -10,11 +10,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: '50px',
         width: width,
       },
       //scroll container
-      scrollView: {
+      mainView: {
         flex: 1,
         width: width,
       },
@@ -30,6 +29,24 @@ const styles = StyleSheet.create({
       },
       flex4: {
         flex: 4
+      },
+      flex5: {
+        flex: 5
+      },
+      flex6: {
+        flex: 6
+      },
+      flex7: {
+        flex: 7
+      },
+      flex8: {
+        flex: 8
+      },
+      flex9: {
+        flex: 9
+      },
+      flex10: {
+        flex: 10
       },
       alignStretch: {
         alignSelf: 'stretch'
@@ -47,10 +64,16 @@ const styles = StyleSheet.create({
       justifyVerticalCenter: {
         justifyContent: 'center'
       },
+      justifyVerticalBottom: {
+        justifyContent: 'flex-end'
+      },
       justifyHorizontalCenter: {
         alignItems: 'center'
       },
       //widths
+      width: {
+        width: width
+      },
       width100: {
         width: '100%'
       },
@@ -70,6 +93,9 @@ const styles = StyleSheet.create({
         width: '20%'
       },
       //height
+      height: {
+        height
+      },
       height100: {
         height: '100%'
       },
@@ -110,6 +136,12 @@ const styles = StyleSheet.create({
         height: height * 0.4
       },
       //padding
+      paddingTop0: {
+        paddingTop: 0
+      },
+      paddingBottom0: {
+        paddingBottom: 0
+      },
       paddingLeft0: {
         paddingLeft: 0
       },
@@ -123,27 +155,56 @@ const styles = StyleSheet.create({
       paddingLeftVW10: {
         paddingLeft: width*0.1
       },
+      //margin
+      marginBottom0: {
+        marginBottom: 0
+      },
+      marginBottom5: {
+        marginBottom: 5
+      },
+      marginTop0: {
+        marginTop: 0
+      },
+      marginTop5: {
+        marginTop: 5
+      },
       //borders
       borderBlack: {
         borderWidth: 1,
+        borderColor: "#000000",
+      },
+      borderGreyLight: {
+        borderWidth: 1,
+        borderColor: "#cccccc",
+      },
+      borderBlackTopBottom: {
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderColor: "#000000",
+      },
+      borderBlackBottom: {
+        borderBottomWidth: 1,
         borderColor: "#000000",
       },
       //background color
       backgroundWhite: {
         backgroundColor: '#fff',
       },
+      backgroundBlack: {
+        backgroundColor: '#000000',
+      },
       //border
       borderRadiusTop: {
-        borderTopRightRadius: '20px',
-        borderTopLeftRadius: '20px',
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
         borderTopWidth: 1,
         borderLeftWidth: 1,
         borderRightWidth: 1,
         overflow: 'hidden'
       },
       borderRadiusBottom: {
-        borderBottomRightRadius: '20px',
-        borderBottomLeftRadius: '20px',
+        borderBottomRightRadius: 20,
+        borderBottomLeftRadius: 20,
         borderBottomWidth: 1,
         borderLeftWidth: 1,
         borderRightWidth: 1,
@@ -182,6 +243,12 @@ const styles = StyleSheet.create({
       travelCellTitle: {
         justifyContent: 'center', 
       },
+      //profile
+      profilePic: {
+        height: width / 3, 
+        width: width / 3, 
+        borderRadius: 180
+      }
       
 });
 

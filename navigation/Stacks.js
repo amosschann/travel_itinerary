@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen'
 import UserProfileScreen from '../screens/UserProfileScreen';
 import TravelsScreen from '../screens/TravelsScreen';
-import ItenaryScreen from '../screens/ItenaryScreen';
+import ItineraryScreen from '../screens/ItineraryScreen';
 import AddScreen from '../screens/AddScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
@@ -22,7 +22,7 @@ export function HomeStackScreen() {
           }}
         />
         {travelStackScreen()}
-        {ItenaryStackScreen()}
+        {itineraryStackScreen()}
         {SignUpStackScreen()}
 
         </HomeStack.Navigator>
@@ -91,14 +91,14 @@ export function travelStackScreen() {
   );
 }
 
-export function ItenaryStackScreen() {
-  const ItenaryStack = createNativeStackNavigator();
+export function itineraryStackScreen() {
+  const itineraryStack = createNativeStackNavigator();
   return(
-    <ItenaryStack.Screen 
-      name="ItenaryScreen" 
-      component={ItenaryScreen}
+    <itineraryStack.Screen 
+      name="ItineraryScreen" 
+      component={ItineraryScreen}
       options={{ 
-        title: 'Itenary' 
+        title: 'Itinerary' 
       }}
     />
   );
