@@ -4,6 +4,13 @@ import styles from '../components/Style';
 
 
 export default function TravelTable ({ props }) {
+    //render unique keys
+    let key = props.key
+    if (props.header) {
+        key ='t-' + key;
+    }
+
+
     let image1, image2;
     if (props.type === "default1") {
         image1 = require('../assets/travelphoto1.jpg');
@@ -16,51 +23,53 @@ export default function TravelTable ({ props }) {
     function header() {
         if (props.header) {
             return(
-                <View style={styles.flexRow}>
+                <View style={[styles.flexRow, styles.paddingUpDown5]}>
                     <View style={[styles.flex3, styles.justifyVerticalCenter]}>
                         <Text style={styles.travelHeader}>{props.headerTitle}</Text>
                     </View>
-                    <View style={[styles.flex1, styles.justifyVerticalCenter]}>
-                        <TouchableOpacity onPress={() => props.navigate('TravelsScreen', { navigateType: props.navigateType })}>
+                    <TouchableOpacity onPress={() => props.navigate('TravelsScreen', { navigateType: props.navigateType })}>
+                        <View style={[styles.flex1, styles.justifyVerticalCenter]}>
                             <Text> View All → </Text>
-                        </TouchableOpacity>
-                    </View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
+                
             );
         }
     }
 
     return (
         <TableView style={styles.travelTable}>
-            <TouchableOpacity onPress={() => props.navigate('ItineraryScreen', { travelid: 'palceholder' })}>
+            
                 <Section
-                key={props.key}
-                headerComponent={header()}
-                hideSurroundingSeparators={true}
-                style={{borderRadius: '10px'}}
+                    key={'travelTable' + key}
+                    headerComponent={header()}
+                    hideSurroundingSeparators={true}
+                    style={{borderRadius: '10px'}}
                 >
-                    <Cell
-                        key="travelTableCellPhoto"
-                        contentContainerStyle={[styles.flexRow, styles.paddingLeft0, styles.paddingRight0, styles.borderRadiusTop]}
-                        cellContentView={
-                            <>
-                                <Image source={image1} style={styles.travelCellImage} resizeMode="cover"/>
-                                <Image source={image2} style={styles.travelCellImage} resizeMode="cover"/>
-                            </>
-                        }
-                    />
-                    <Cell
-                        key="travelTableCellName"
-                        contentContainerStyle={[styles.travelCellTitle, styles.borderRadiusBottom]}
-                        cellContentView={
-                            <View style={styles.justifyHorizontalCenter}>
-                                <Text style={[styles.paddingUpDown5, styles.font20]}>{props.tripName}</Text>
-                                <Text style={[styles.paddingUpDown5, styles.font15]}>{props.tripLocation}</Text>
-                            </View>
-                        }
-                    />
+                    <TouchableOpacity onPress={() => props.navigate('ItineraryScreen', { travelid: 'palceholder' })}>
+                        <Cell
+                            key={"travelTableCellPhoto" + key}
+                            contentContainerStyle={[styles.flexRow, styles.paddingLeft0, styles.paddingRight0, styles.borderRadiusTop]}
+                            cellContentView={
+                                <>
+                                    <Image source={image1} style={styles.travelCellImage} resizeMode="cover"/>
+                                    <Image source={image2} style={styles.travelCellImage} resizeMode="cover"/>
+                                </>
+                            }
+                        />
+                        <Cell
+                            key={"travelTableCellName" + key}
+                            contentContainerStyle={[styles.travelCellTitle, styles.borderRadiusBottom]}
+                            cellContentView={
+                                <View style={styles.justifyHorizontalCenter}>
+                                    <Text style={[styles.paddingUpDown5, styles.font20]}>{props.tripName}</Text>
+                                    <Text style={[styles.paddingUpDown5, styles.font15]}>{props.tripLocation}</Text>
+                                </View>
+                            }
+                        />
+                    </TouchableOpacity>
                 </Section>
-            </TouchableOpacity>
         </TableView>
     );
 };

@@ -67,6 +67,9 @@ const styles = StyleSheet.create({
       justifyVerticalBottom: {
         justifyContent: 'flex-end'
       },
+      justifyVerticalTop: {
+        justifyContent: 'flex-start'
+      },
       justifyHorizontalCenter: {
         alignItems: 'center'
       },
@@ -139,6 +142,9 @@ const styles = StyleSheet.create({
       paddingTop0: {
         paddingTop: 0
       },
+      paddingTop20: {
+        paddingTop: 20
+      },
       paddingBottom0: {
         paddingBottom: 0
       },
@@ -168,6 +174,10 @@ const styles = StyleSheet.create({
       marginTop5: {
         marginTop: 5
       },
+      marginLeftRight10: {
+        marginLeft: 10,
+        marginRight: 10
+      },
       //borders
       borderBlack: {
         borderWidth: 1,
@@ -186,12 +196,19 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: "#000000",
       },
+      borderBlackTop: {
+        borderTopWidth: 1,
+        borderColor: "#000000",
+      },
       //background color
       backgroundWhite: {
         backgroundColor: '#fff',
       },
       backgroundBlack: {
         backgroundColor: '#000000',
+      },
+      backgroundBeige: {
+        backgroundColor: '#faf0e6'
       },
       //border
       borderRadiusTop: {
@@ -210,6 +227,16 @@ const styles = StyleSheet.create({
         borderRightWidth: 1,
         overflow: 'hidden',
       },
+      //image object fit
+      objectFitContain: {
+        objectFit: 'contain'
+      },
+      objectFitFill: {
+        objectFit: 'fill'
+      },
+      objectFitCover: {
+        objectFit: 'cover'
+      },
       //font
       font20: {
         fontSize: 20,
@@ -219,6 +246,9 @@ const styles = StyleSheet.create({
       },
       fontWeightBold: {
         fontWeight: 'bold'
+      },
+      colorDarkGrey: {
+        color: 'darkgrey'
       },
       //travel table
       travelTable: {
