@@ -158,6 +158,10 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         paddingBottom: 5,
       },
+      paddingUpDown10: {
+        paddingTop: 10,
+        paddingBottom: 10,
+      },
       paddingLeftVW10: {
         paddingLeft: width*0.1
       },
@@ -249,6 +253,10 @@ const styles = StyleSheet.create({
       },
       colorDarkGrey: {
         color: 'darkgrey'
+      },
+      //highlight
+      highlightLightBlue: {
+        backgroundColor: '#a1cfe6'
       },
       //travel table
       travelTable: {

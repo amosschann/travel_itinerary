@@ -8,49 +8,40 @@ const { width } = Dimensions.get('screen');
 
 export default function ItineraryImages({ props }) {
     const ref = useRef(null);
-
     const renderItem = useCallback(({ item, index }) => (
-        <View >
-        <TouchableOpacity>
+        <View style={[styles.flex1, styles.paddingUpDown10]}>
+        <TouchableOpacity style={[styles.flex1, styles.flexColumn]} onPress={() => props.viewFullScreen()}>
             <ImageBackground 
                     source={{uri: item}} 
-                    style={[styles.width100, styles.height100, styles.justifyHorizontalCenter, styles.justifyVerticalCenter]} 
+                    style={[styles.flex4, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.borderRadiusTop]} 
                     imageStyle= {[styles.objectFitCover]}
-            >
-            </ImageBackground>
+            />
+            <View style={[styles.flex1, styles.justifyVerticalCenter, styles.justifyHorizontalCenter, styles.borderRadiusBottom, styles.backgroundWhite]}>
+                <Text>{props.dates[Number(index)]}</Text>
+            </View>
         </TouchableOpacity>
 
         </View>
-      ), []);
+      ), [props.slideImages]);
 
-    if (props.images.length === 0) {
-        return (
-            <View style={[styles.flex1]}>
-                    <ImageBackground 
-                            source={require('../assets/itineraryImage2.jpg')} 
-                            style={[styles.height100, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, {width: width * 0.9, marginLeft: width * 0.05}]} 
-                            imageStyle= {[{opacity:0.3}, styles.objectFitCover]}
-                    >
-                        <Text style={[styles.font15, styles.fontWeightBold, styles.colorDarkGrey]}>
-                            Add a Photo
-                        </Text>
-                    </ImageBackground>
-            </View>
-        );
-    } else {
 
-        return (
-            <View style={[styles.flex1]}>
+    return (
+        <View style={[styles.flex1]}>
+                <ImageBackground 
+                    source={require('../assets/itineraryImage2.jpg')} 
+                    style={[styles.width, styles.flex1, styles.justifyVerticalBottom, styles.justifyHorizontalCenter]} 
+                    imageStyle= {{opacity:0.2}}
+                >
                 <Carousel
                     layout="default"
                     ref={ref}
                     data={props.images}
                     sliderWidth={width}
-                    itemWidth={width * 0.90}
+                    itemWidth={width * 0.5}
                     renderItem={renderItem}
-                    onSnapToItem={(index) => console.log(index)}
+                    onSnapToItem={(index) => props.changeIndex(index)}
                 />
-            </View>
-        );
-    }
+            </ImageBackground>
+        </View>
+    );
 }

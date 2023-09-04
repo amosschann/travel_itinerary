@@ -26,12 +26,11 @@ export default function ItineraryTableRows ({ props }){
                 <Cell
                     key={'cellrow' + cellProps.index}
                     contentContainerStyle={[styles.heightVW10, styles.justifyVerticalCenter, styles.borderBlackBottom, borderTop]}
-                    image={<MaterialCommunityIcons style={[styles.justifyVerticalCenter]} name="clock-outline" size={width/15}/>}
                     cellContentView={
                         //time and activity name
                         <View style={[styles.flexRow, styles.flex1]}>
                             <View style={[styles.justifyVerticalCenter, styles.flex5, styles.justifyHorizontalCenter]}>
-                                <Text style={[styles.marginBottom5]}>{cellProps.activityTime}</Text>
+                                <Text style={[styles.marginBottom5, styles.highlightLightBlue]}>{cellProps.activityTime}</Text>
                                 <Text style={[styles.font15]}>{cellProps.activityName}</Text>
                             </View>
                             <View style={[styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.flex1]}>
