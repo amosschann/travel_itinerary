@@ -114,7 +114,6 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
                 </View>
                 {/* Add */}
                 <View style={[styles.flex1, styles.flexRow, styles.width, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.borderBlackTopBottom]}>
-                    <AddButton props={{title: 'Add Days'}}/>
                     <AddButton props={{title: 'Add Photo'}}/>
                     <AddButton props={{title: 'Add Itinerary'}}/>
                 </View>
