@@ -1,32 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ActivityIndicator } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import styles from '../components/Style';
 import TravelTable from '../components/TravelTable';
+import PageLoad from '../components/PageLoad';
 // import { Cell, Section, TableView } from 'react-native-tableview-simple';
 // const { width } = Dimensions.get('screen');
 
 export default function TravelsScreen ({ navigation: { navigate }, route }){
-    // const route = useRoute();
-    // // Access the 'names' parameter from the route
-    // const { names } = route.params;
-    const [exampleGetTravelsResponse, setExampleGetTravelsResponse] = useState([
-                                                                                {type:"default1", navigate: navigate, tripName: "Trip 1 Example", tripLocation: "Singapore"}, 
-                                                                                {type:"default2", navigate: navigate, tripName: "Trip 2 Example", tripLocation: "London , England"},
-                                                                                {type:"default1", navigate: navigate, tripName: "Trip 3 Example", tripLocation: "Singapore"}, 
-                                                                                {type:"default2", navigate: navigate, tripName: "Trip 4 Example", tripLocation: "London , England"}
-                                                                            ]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [exampleGetTravelsResponse, setExampleGetTravelsResponse] = useState();
 
     useEffect(() => {
-        if (route.params.navigateType === "Upcoming") {
-            //api call to get upcoming travels
-            console.log('upcomming fetch')
-        } else if (route.params.navigateType === "Completed") {
-            //api call to get completed travels
-            console.log('completed fetch')
-        }
+        setTimeout(() => {
+            //fetch travels
+            if (route.params.navigateType === "Upcoming") {
+                //api call to get upcoming travels
+                console.log('upcomming fetch')
+            } else if (route.params.navigateType === "Completed") {
+                //api call to get completed travels
+                console.log('completed fetch')
+            }
+            setExampleGetTravelsResponse([
+                {type:"default1", navigate: navigate, tripName: "Trip 1 Example", tripLocation: "Singapore"}, 
+                {type:"default2", navigate: navigate, tripName: "Trip 2 Example", tripLocation: "London , England"},
+                {type:"default1", navigate: navigate, tripName: "Trip 3 Example", tripLocation: "Singapore"}, 
+                {type:"default2", navigate: navigate, tripName: "Trip 4 Example", tripLocation: "London , England"}
+            ]);
+            setIsLoading(false);
+        }, 1000);
     }, []);
 
+    if(isLoading) {
+        return (
+            <PageLoad/>
+        );
+    }
 
     return (
         <SafeAreaView style={styles.container}>

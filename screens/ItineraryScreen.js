@@ -8,6 +8,7 @@ import ItineraryImages from '../components/ItinereryImages';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AddButton from '../components/AddButton';
 import ImageView from "react-native-image-viewing";
+import PageLoad from '../components/PageLoad';
 
 
 
@@ -81,9 +82,7 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
     
     if(isLoading) {
         return (
-            <View style={[styles.height, styles.width, styles.justifyHorizontalCenter, styles.paddingTop20]}>
-                <ActivityIndicator size="large" />
-            </View> 
+            <PageLoad/>
         );
     }
 
