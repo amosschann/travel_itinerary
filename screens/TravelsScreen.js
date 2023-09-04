@@ -41,8 +41,8 @@ export default function TravelsScreen ({ navigation: { navigate }, route }){
                     <ScrollView style={styles.mainView}>
                         {exampleGetTravelsResponse.map((resp, index) => (
                             <TravelTable
+                                key={'travelTable-' + index}
                                 props={{
-                                    key: index,
                                     header: false,
                                     type:resp.type,
                                     tripName:resp.tripName,

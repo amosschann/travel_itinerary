@@ -4,13 +4,6 @@ import styles from '../components/Style';
 
 
 export default function TravelTable ({ props }) {
-    //render unique keys
-    let key = props.key
-    if (props.header) {
-        key ='t-' + key;
-    }
-
-
     let image1, image2;
     if (props.type === "default1") {
         image1 = require('../assets/travelphoto1.jpg');
@@ -42,14 +35,12 @@ export default function TravelTable ({ props }) {
         <TableView style={styles.travelTable}>
             
                 <Section
-                    key={'travelTable' + key}
                     headerComponent={header()}
                     hideSurroundingSeparators={true}
                     style={{borderRadius: '10px'}}
                 >
                     <TouchableOpacity onPress={() => props.navigate('ItineraryScreen', { travelid: 'palceholder' })}>
                         <Cell
-                            key={"travelTableCellPhoto" + key}
                             contentContainerStyle={[styles.flexRow, styles.paddingLeft0, styles.paddingRight0, styles.borderRadiusTop]}
                             cellContentView={
                                 <>
@@ -59,7 +50,6 @@ export default function TravelTable ({ props }) {
                             }
                         />
                         <Cell
-                            key={"travelTableCellName" + key}
                             contentContainerStyle={[styles.travelCellTitle, styles.borderRadiusBottom]}
                             cellContentView={
                                 <View style={styles.justifyHorizontalCenter}>

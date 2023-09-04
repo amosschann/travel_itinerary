@@ -24,7 +24,6 @@ export default function ItineraryTableRows ({ props }){
         return (
             <TouchableOpacity onPress={() => console.log('go to edit / delete')}>
                 <Cell
-                    key={'cellrow' + cellProps.index}
                     contentContainerStyle={[styles.heightVW10, styles.justifyVerticalCenter, styles.borderBlackBottom, borderTop]}
                     cellContentView={
                         //time and activity name
@@ -46,9 +45,9 @@ export default function ItineraryTableRows ({ props }){
     return (
         <ScrollView style={[styles.mainView]}>
             <TableView style={[]}>
-                    <Section key='itinerary table'>
+                    <Section key={'itinerarytable'}>
                     {props.itineraries.map((resp, index) => (
-                        <CellRow cellProps={{activityTime: resp.activityTime, activityName: resp.activityName, index:index}}/> 
+                        <CellRow key={'cellrow' + index} cellProps={{activityTime: resp.activityTime, activityName: resp.activityName, index:index}}/> 
                     ))    
                     }
                        
