@@ -8,13 +8,19 @@ const { width } = Dimensions.get('screen');
 
 export default function ItineraryImages({ props }) {
     const ref = useRef(null);
+    const [currentIndex, setCurrentIndex] = useState(props.index);
+    
     const renderItem = useCallback(({ item, index }) => (
         <View style={[styles.flex1, styles.paddingUpDown10]}>
-        <TouchableOpacity style={[styles.flex1, styles.flexColumn]} onPress={() => props.viewFullScreen()}>
+        <TouchableOpacity style={[styles.flex1, styles.flexColumn]} onPress={() => {
+            if (currentIndex === index) {
+                props.viewFullScreen();
+            }
+        }}>
             <ImageBackground 
-                    source={{uri: item}} 
-                    style={[styles.flex4, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.borderRadiusTop]} 
-                    imageStyle= {[styles.objectFitCover]}
+                source={{uri: item}} 
+                style={[styles.flex4, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.borderRadiusTop]} 
+                imageStyle= {[styles.objectFitCover]}
             />
             <View style={[styles.flex1, styles.justifyVerticalCenter, styles.justifyHorizontalCenter, styles.borderRadiusBottom, styles.backgroundWhite]}>
                 <Text>{props.dates[Number(index)]}</Text>
@@ -22,7 +28,7 @@ export default function ItineraryImages({ props }) {
         </TouchableOpacity>
 
         </View>
-      ), [props.slideImages]);
+      ), [props.slideImages, currentIndex]);
 
 
     return (
@@ -37,9 +43,13 @@ export default function ItineraryImages({ props }) {
                     ref={ref}
                     data={props.images}
                     sliderWidth={width}
-                    itemWidth={width * 0.5}
+                    itemWidth={width * 0.6}
                     renderItem={renderItem}
-                    onSnapToItem={(index) => props.changeIndex(index)}
+                    onSnapToItem={(index) => {
+                        props.changeIndex(index);
+                        setCurrentIndex(index);
+                    }}
+                    firstItem={props.index}
                 />
             </ImageBackground>
         </View>
