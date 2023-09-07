@@ -43,16 +43,16 @@ export default function UserProfileScreen ({ navigation: { navigate }, props }){
                         style={[styles.flex1]}
                         >
                             <UserProfileRow 
-                                props={{title: "Edit Profile Info", navigate: navigate, iconName: 'clipboard-text-outline'}}
+                                props={{title: "Edit Profile Info", navigate: navigate, iconName: 'clipboard-text-outline', navigateTo: 'examplepage'}}
                             />
                             <UserProfileRow 
-                                props={{title: "Edit Profile Image", navigate: navigate, iconName: 'image-edit-outline'}}
+                                props={{title: "Edit Profile Image", navigate: navigate, iconName: 'image-edit-outline',  navigateTo: 'examplepage'}}
                             />
                             <UserProfileRow 
-                                props={{title: "More Settings", navigate: navigate, iconName: 'cog-outline'}}
+                                props={{title: "More Settings", navigate: navigate, iconName: 'cog-outline',  navigateTo: 'examplepage'}}
                             />
                             <UserProfileRow 
-                                props={{title: "Log Out", navigate: navigate, iconName: 'logout'}}
+                                props={{title: "Log Out", navigate: navigate, iconName: 'logout',  navigateTo: 'examplepage'}}
                             />
                         </Section>
                     </TableView>

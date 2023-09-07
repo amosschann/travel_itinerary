@@ -45,7 +45,7 @@ export function UserProfileStackScreen() {
   );
 }
 
-export function LoginStackScreen() {
+export function LoginStackScreen(signIn) {
   const LoginStack = createNativeStackNavigator();
   return(
     <LoginStack.Navigator>
