@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ImageBackground } from 'react-native';
 import styles from '../components/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TravelTable from '../components/TravelTable'
@@ -10,7 +10,12 @@ export default function HomeScreen({ navigation: { navigate }, props }){
     return (
         <SafeAreaView style={styles.container}>
             <View style={[styles.mainView, styles.flexColumn]}>
-                <View style={styles.mainView}>
+            <ImageBackground 
+                source={require('../assets/clouds.jpg')} 
+                style={[styles.width, styles.flex1, styles.justifyVerticalBottom, styles.justifyHorizontalCenter]} 
+                imageStyle= {{opacity:0.1}}
+            >
+                <View style={[styles.mainView]}>
                     <TravelTable
                         props={{
                             header: true,
@@ -24,19 +29,19 @@ export default function HomeScreen({ navigation: { navigate }, props }){
                         }}
                     />
                 </View>
-                <View style={styles.mainView}>
-                <TravelTable
-                    props={{
-                        header: true,
-                        key:"completedTravel",
-                        type:"default2", 
-                        headerTitle: "Completed Travels", 
-                        tripName: "No Completed Travels",
-                        tripLocation: "Add Your Travels",
-                        navigate: navigate, 
-                        navigateType: "Completed"
-                        }}
-                />
+                <View style={[styles.mainView]}>
+                    <TravelTable
+                        props={{
+                            header: true,
+                            key:"completedTravel",
+                            type:"default2", 
+                            headerTitle: "Completed Travels", 
+                            tripName: "No Completed Travels",
+                            tripLocation: "Add Your Travels",
+                            navigate: navigate, 
+                            navigateType: "Completed"
+                            }}
+                    />
                 </View>
 
                 {/* <Button
@@ -59,7 +64,7 @@ export default function HomeScreen({ navigation: { navigate }, props }){
                     color="#841584"
                     accessibilityLabel="test"
                 /> */}
-
+            </ImageBackground>
             </View>
 
 

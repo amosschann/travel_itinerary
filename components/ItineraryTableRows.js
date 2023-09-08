@@ -24,7 +24,7 @@ export default function ItineraryTableRows ({ props }){
         return (
             <TouchableOpacity onPress={() => console.log('go to edit / delete')}>
                 <Cell
-                    contentContainerStyle={[styles.heightVW10, styles.justifyVerticalCenter, styles.borderBlackBottom, borderTop]}
+                    contentContainerStyle={[styles.heightVH10, styles.justifyVerticalCenter, styles.borderBlackBottom, borderTop]}
                     cellContentView={
                         //time and activity name
                         <View style={[styles.flexRow, styles.flex1]}>

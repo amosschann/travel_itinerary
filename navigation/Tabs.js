@@ -25,7 +25,7 @@ export function ProfileTabScreen( ) {
                 component={UserProfileStackScreen}
                 options={{
                     tabBarLabel: 'Profile',
-                    headerShown: false
+                    headerShown: false,
                 }}
             />
         )

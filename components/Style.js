@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: width,
       },
-      //scroll container
+      //main view container
       mainView: {
         flex: 1,
         width: width,
@@ -114,29 +114,35 @@ const styles = StyleSheet.create({
       height25: {
         height: '25%'
       },
-      heightVW2: {
+      heightVH2: {
         height: height*0.02
       },
-      heightVW5: {
+      heightVH5: {
         height: height*0.05
       },
-      heightVW9: {
+      heightVH9: {
         height: height*0.09
       },
-      heightVW10: {
+      heightVH10: {
         height: height * 0.10
       },
-      heightVW20: {
+      heightVH20: {
         height: height * 0.2
       },
-      heightVW25: {
+      heightVH25: {
         height: height * 0.25
       },
-      heightVW35: {
+      heightVH35: {
         height: height * 0.35
       },
-      heightVW40: {
+      heightVH40: {
         height: height * 0.4
+      },
+      heightVH50: {
+        height: height * 0.5
+      },
+      heightVH60: {
+        height: height * 0.6
       },
       //padding
       paddingTop0: {
@@ -178,6 +184,10 @@ const styles = StyleSheet.create({
       marginTop5: {
         marginTop: 5
       },
+      marginBottomTop5: {
+        marginBottom: 5,
+        marginTop: 5
+      },
       marginLeftRight10: {
         marginLeft: 10,
         marginRight: 10
@@ -204,17 +214,6 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderColor: "#000000",
       },
-      //background color
-      backgroundWhite: {
-        backgroundColor: '#fff',
-      },
-      backgroundBlack: {
-        backgroundColor: '#000000',
-      },
-      backgroundBeige: {
-        backgroundColor: '#faf0e6'
-      },
-      //border
       borderRadiusTop: {
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
@@ -230,6 +229,28 @@ const styles = StyleSheet.create({
         borderLeftWidth: 1,
         borderRightWidth: 1,
         overflow: 'hidden',
+      },
+      borderRadiusAllBlack10: {
+        overflow: 'hidden',
+        borderRadius: 10,
+        borderColor: "#000000",
+        borderWidth: 1,
+      },
+      //background color
+      backgroundWhite: {
+        backgroundColor: '#fff',
+      },
+      backgroundBlack: {
+        backgroundColor: '#000000',
+      },
+      backgroundBeige: {
+        backgroundColor: '#faf0e6'
+      },
+      backgroundLightBlue: {
+        backgroundColor: '#a1cfe6'
+      },
+      backgroundDarkBlue: {
+        backgroundColor: '#141f31'
       },
       //image object fit
       objectFitContain: {
@@ -254,9 +275,19 @@ const styles = StyleSheet.create({
       colorDarkGrey: {
         color: 'darkgrey'
       },
+      colorWhite: {
+        color: '#FFFFFF'
+      },
+      colorDarkBlue: {
+        color: '#141f31'
+      },
       //highlight
       highlightLightBlue: {
         backgroundColor: '#a1cfe6'
+      },
+      //text
+      textAlignCenter: {
+        textAlign: 'center'
       },
       //travel table
       travelTable: {

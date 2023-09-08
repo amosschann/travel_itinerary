@@ -12,17 +12,17 @@ export default function ItineraryImages({ props }) {
     
     const renderItem = useCallback(({ item, index }) => (
         <View style={[styles.flex1, styles.paddingUpDown10]}>
-        <TouchableOpacity style={[styles.flex1, styles.flexColumn]} onPress={() => {
+        <TouchableOpacity style={[styles.flex1, styles.flexColumn, styles.borderRadiusTop, styles.borderRadiusBottom]} onPress={() => {
             if (currentIndex === index) {
                 props.viewFullScreen();
             }
         }}>
             <ImageBackground 
                 source={{uri: item}} 
-                style={[styles.flex4, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.borderRadiusTop]} 
+                style={[styles.flex4, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, ]} 
                 imageStyle= {[styles.objectFitCover]}
             />
-            <View style={[styles.flex1, styles.justifyVerticalCenter, styles.justifyHorizontalCenter, styles.borderRadiusBottom, styles.backgroundWhite]}>
+            <View style={[styles.flex1, styles.justifyVerticalCenter, styles.justifyHorizontalCenter, styles.backgroundWhite]}>
                 <Text>{props.dates[Number(index)]}</Text>
             </View>
         </TouchableOpacity>

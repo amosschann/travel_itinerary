@@ -6,7 +6,7 @@ import styles from '../components/Style';
 import ItineraryTableRows from '../components/ItineraryTableRows';
 import ItineraryImages from '../components/ItinereryImages';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AddButton from '../components/AddButton';
+import { AddButton } from '../components/Buttons';
 import ImageView from "react-native-image-viewing";
 import PageLoad from '../components/PageLoad';
 
@@ -114,8 +114,8 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
                 </View>
                 {/* Add */}
                 <View style={[styles.flex1, styles.flexRow, styles.width, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.borderBlackTopBottom]}>
-                    <AddButton props={{title: 'Add Photo'}}/>
-                    <AddButton props={{title: 'Add Itinerary'}}/>
+                        <AddButton props={{title: 'Add Photo'}}/>
+                        <AddButton props={{title: 'Add Itinerary'}}/>
                 </View>
                 {/* Itinerary rows */}
                 <View style={[styles.flex6, styles.width]}>

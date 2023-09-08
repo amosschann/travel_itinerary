@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ActivityIndicator } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ActivityIndicator, ImageBackground } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import styles from '../components/Style';
 import TravelTable from '../components/TravelTable';
@@ -40,29 +40,35 @@ export default function TravelsScreen ({ navigation: { navigate }, route }){
     return (
         <SafeAreaView style={styles.container}>
             <View style={[styles.mainView, styles.flexColumn]}>
-                {/* Header */}
-                <View style={[styles.mainView, styles.justifyHorizontalCenter, styles.justifyVerticalCenter]}>
-                    <Text style={[styles.font20, styles.fontWeightBold]}>
-                        {route.params.navigateType}
-                    </Text>
-                </View>
-                <View style={[styles.flex10, styles.width]}>
-                    <ScrollView style={styles.mainView}>
-                        {exampleGetTravelsResponse.map((resp, index) => (
-                            <TravelTable
-                                key={'travelTable-' + index}
-                                props={{
-                                    header: false,
-                                    type:resp.type,
-                                    tripName:resp.tripName,
-                                    tripLocation:resp.tripLocation,
-                                    navigate:navigate
-                                }}
-                            />
-                            ))
-                        }
-                    </ScrollView>
-                </View>
+                <ImageBackground 
+                    source={require('../assets/clouds.jpg')} 
+                    style={[styles.width, styles.flex1, styles.justifyVerticalBottom, styles.justifyHorizontalCenter]} 
+                    imageStyle= {{opacity:0.1}}
+                >
+                    {/* Header */}
+                    <View style={[styles.mainView, styles.justifyHorizontalCenter, styles.justifyVerticalCenter]}>
+                        <Text style={[styles.font20, styles.fontWeightBold]}>
+                            {route.params.navigateType}
+                        </Text>
+                    </View>
+                    <View style={[styles.flex10, styles.width]}>
+                        <ScrollView style={styles.mainView}>
+                            {exampleGetTravelsResponse.map((resp, index) => (
+                                <TravelTable
+                                    key={'travelTable-' + index}
+                                    props={{
+                                        header: false,
+                                        type:resp.type,
+                                        tripName:resp.tripName,
+                                        tripLocation:resp.tripLocation,
+                                        navigate:navigate
+                                    }}
+                                />
+                                ))
+                            }
+                        </ScrollView>
+                    </View>
+                </ImageBackground>
             </View>
         </SafeAreaView>
     );

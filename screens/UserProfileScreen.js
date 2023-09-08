@@ -8,11 +8,10 @@ import styles from '../components/Style';
 // import { Cell, Section, TableView } from 'react-native-tableview-simple';
 // const { width } = Dimensions.get('screen');
 
-export default function UserProfileScreen ({ navigation: { navigate }, props }){
+export default function UserProfileScreen ({ navigation: { navigate }, signOut, props }){
     // const route = useRoute();
     // // Access the 'names' parameter from the route
     // const { names } = route.params;
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={[styles.mainView, styles.flexColumn]}>
@@ -43,16 +42,16 @@ export default function UserProfileScreen ({ navigation: { navigate }, props }){
                         style={[styles.flex1]}
                         >
                             <UserProfileRow 
-                                props={{title: "Edit Profile Info", navigate: navigate, iconName: 'clipboard-text-outline', navigateTo: 'examplepage'}}
+                                props={{title: "Update Profile Info", navigate: navigate, iconName: 'clipboard-text-outline', navigateTo: 'examplepage'}}
                             />
                             <UserProfileRow 
-                                props={{title: "Edit Profile Image", navigate: navigate, iconName: 'image-edit-outline',  navigateTo: 'examplepage'}}
+                                props={{title: "Update Profile Image", navigate: navigate, iconName: 'image-edit-outline',  navigateTo: 'examplepage'}}
                             />
                             <UserProfileRow 
-                                props={{title: "More Settings", navigate: navigate, iconName: 'cog-outline',  navigateTo: 'examplepage'}}
+                                props={{title: "More Settings", navigate: navigate, iconName: 'cog-outline',  navigateTo: 'InProgressPage'}}
                             />
                             <UserProfileRow 
-                                props={{title: "Log Out", navigate: navigate, iconName: 'logout',  navigateTo: 'examplepage'}}
+                                props={{title: "Sign Out", navigate: navigate, iconName: 'logout',  navigateTo: 'signOut', signOut: signOut} }
                             />
                         </Section>
                     </TableView>

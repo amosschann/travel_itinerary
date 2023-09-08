@@ -32,16 +32,16 @@ export default function TravelTable ({ props }) {
     }
 
     return (
-        <TableView style={styles.travelTable}>
+        <TableView style={[styles.travelTable]}>
             
                 <Section
                     headerComponent={header()}
                     hideSurroundingSeparators={true}
-                    style={{borderRadius: '10px'}}
+                    roundedCorners={true}
                 >
-                    <TouchableOpacity onPress={() => props.navigate('ItineraryScreen', { travelid: 'palceholder' })}>
+                    <TouchableOpacity style={[styles.borderRadiusTop, styles.borderRadiusBottom]} onPress={() => props.navigate('ItineraryScreen', { travelid: 'palceholder' })}>
                         <Cell
-                            contentContainerStyle={[styles.flexRow, styles.paddingLeft0, styles.paddingRight0, styles.borderRadiusTop]}
+                            contentContainerStyle={[styles.flexRow, styles.paddingLeft0, styles.paddingRight0]}
                             cellContentView={
                                 <>
                                     <Image source={image1} style={styles.travelCellImage} resizeMode="cover"/>
@@ -50,7 +50,7 @@ export default function TravelTable ({ props }) {
                             }
                         />
                         <Cell
-                            contentContainerStyle={[styles.travelCellTitle, styles.borderRadiusBottom]}
+                            contentContainerStyle={[styles.travelCellTitle]}
                             cellContentView={
                                 <View style={styles.justifyHorizontalCenter}>
                                     <Text style={[styles.paddingUpDown5, styles.font20]}>{props.tripName}</Text>

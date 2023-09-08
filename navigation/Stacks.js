@@ -4,7 +4,7 @@ import UserProfileScreen from '../screens/UserProfileScreen';
 import TravelsScreen from '../screens/TravelsScreen';
 import ItineraryScreen from '../screens/ItineraryScreen';
 import AddScreen from '../screens/AddScreen';
-import LoginScreen from '../screens/LoginScreen';
+import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 
 
@@ -23,7 +23,6 @@ export function HomeStackScreen() {
         />
         {travelStackScreen()}
         {itineraryStackScreen()}
-        {SignUpStackScreen()}
 
         </HomeStack.Navigator>
   );
@@ -45,21 +44,6 @@ export function UserProfileStackScreen() {
   );
 }
 
-export function LoginStackScreen(signIn) {
-  const LoginStack = createNativeStackNavigator();
-  return(
-    <LoginStack.Navigator>
-      <LoginStack.Screen 
-        name="LoginScreen" 
-        component={LoginScreen}
-        options={{ 
-          title: 'Login' 
-        }}
-      />
-    </LoginStack.Navigator>
-  );
-}
-
 export function AddStackScreen() {
   const AddStack = createNativeStackNavigator();
   return(
@@ -72,6 +56,22 @@ export function AddStackScreen() {
         }}
       />
     </AddStack.Navigator>
+  );
+}
+
+export function SignInStackScreen() {
+  const SignInStack = createNativeStackNavigator();
+  return(
+    <SignInStack.Navigator>
+      <SignInStack.Screen 
+        name="SignInScreen" 
+        component={SignInScreen}
+        options={{ 
+          title: 'Sign In'
+        }}
+      />
+      {SignUpStackScreen()}
+    </SignInStack.Navigator>
   );
 }
 
@@ -116,5 +116,7 @@ export function SignUpStackScreen() {
     />
   );
 }
+
+
 
 
