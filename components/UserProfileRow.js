@@ -26,10 +26,10 @@ export default function UserProfileRow ({props}){
                     cellContentView={
                         <>
                         <View style={[styles.paddingLeftVW10, styles.heightVH9, styles.justifyVerticalCenter, styles.width70]}>
-                            <Text style={[styles.font20]}>{props.title}</Text>
+                            <Text style={[styles.font20, styles.colorDarkBlue]}>{props.title}</Text>
                         </View>
                         <View style={[styles.justifyHorizontalCenter, styles.heightVH9, styles.justifyVerticalCenter, styles.width20]}>
-                            <Text style={[styles.font20]}>></Text>
+                            <Text style={[styles.font20, styles.colorDarkBlue]}>></Text>
                         </View>
                         </>
                     }

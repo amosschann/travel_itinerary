@@ -52,7 +52,7 @@ export function AddStackScreen() {
         name="AddScreen" 
         component={AddScreen}
         options={{ 
-          title: 'Add' 
+          title: 'Add Travels' 
         }}
       />
     </AddStack.Navigator>

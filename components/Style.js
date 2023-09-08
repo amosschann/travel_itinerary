@@ -252,6 +252,12 @@ const styles = StyleSheet.create({
       backgroundDarkBlue: {
         backgroundColor: '#141f31'
       },
+      backgroundDarkBlueTranslucent8: {
+        backgroundColor: 'rgba(20, 31, 49, 0.8)'
+      },
+      backgroundDarkBlueTranslucent2: {
+        backgroundColor: 'rgba(20, 31, 49, 0.2)'
+      },
       //image object fit
       objectFitContain: {
         objectFit: 'contain'

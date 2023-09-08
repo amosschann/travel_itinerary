@@ -21,7 +21,6 @@ export default function UserProfileScreen ({ navigation: { navigate }, signOut, 
                         <ImageBackground 
                             source={require('../assets/profileBackground.jpg')} 
                             style={[styles.width, styles.flex1, styles.justifyVerticalBottom, styles.justifyHorizontalCenter]} 
-                            imageStyle= {{opacity:0.3}}
                         >
                             <Image source={require('../assets/travelphoto1.jpg')} style={styles.profilePic}/>
                         </ImageBackground>                   
@@ -29,8 +28,8 @@ export default function UserProfileScreen ({ navigation: { navigate }, signOut, 
                                         
                     <View style={[styles.justifyHorizontalCenter, styles.flex1, styles.width100,
                                     styles.justifyVerticalCenter]}>
-                        <Text style={[styles.font15, styles.fontWeightBold, styles.marginBottom5]}>Example Name</Text>
-                        <Text style={[styles.font15]}>example@gmail.com</Text>
+                        <Text style={[styles.font15, styles.fontWeightBold, styles.marginBottom5, styles.colorDarkBlue]}>Example Name</Text>
+                        <Text style={[styles.font15, styles.colorDarkBlue]}>example@gmail.com</Text>
                     </View>
                     
                 </View>

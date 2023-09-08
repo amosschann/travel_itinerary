@@ -29,7 +29,7 @@ export default function ItineraryTableRows ({ props }){
                         //time and activity name
                         <View style={[styles.flexRow, styles.flex1]}>
                             <View style={[styles.justifyVerticalCenter, styles.flex5, styles.justifyHorizontalCenter]}>
-                                <Text style={[styles.marginBottom5, styles.highlightLightBlue]}>{cellProps.activityTime}</Text>
+                                <Text style={[styles.marginBottom5, styles.backgroundDarkBlue, styles.colorWhite]}>{cellProps.activityTime}</Text>
                                 <Text style={[styles.font15]}>{cellProps.activityName}</Text>
                             </View>
                             <View style={[styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.flex1]}>

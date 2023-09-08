@@ -22,8 +22,8 @@ export default function ItineraryImages({ props }) {
                 style={[styles.flex4, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, ]} 
                 imageStyle= {[styles.objectFitCover]}
             />
-            <View style={[styles.flex1, styles.justifyVerticalCenter, styles.justifyHorizontalCenter, styles.backgroundWhite]}>
-                <Text>{props.dates[Number(index)]}</Text>
+            <View style={[styles.flex1, styles.justifyVerticalCenter, styles.justifyHorizontalCenter, styles.backgroundDarkBlue]}>
+                <Text style={[styles.colorWhite]}>{props.dates[Number(index)]}</Text>
             </View>
         </TouchableOpacity>
 

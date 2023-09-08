@@ -10,11 +10,6 @@ export default function HomeScreen({ navigation: { navigate }, props }){
     return (
         <SafeAreaView style={styles.container}>
             <View style={[styles.mainView, styles.flexColumn]}>
-            <ImageBackground 
-                source={require('../assets/clouds.jpg')} 
-                style={[styles.width, styles.flex1, styles.justifyVerticalBottom, styles.justifyHorizontalCenter]} 
-                imageStyle= {{opacity:0.1}}
-            >
                 <View style={[styles.mainView]}>
                     <TravelTable
                         props={{
@@ -64,7 +59,6 @@ export default function HomeScreen({ navigation: { navigate }, props }){
                     color="#841584"
                     accessibilityLabel="test"
                 /> */}
-            </ImageBackground>
             </View>
 
 

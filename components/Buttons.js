@@ -24,8 +24,8 @@ export function AddButton ({props}) {
         <TouchableOpacity style={[styles.flex1]} onPress={props.onPress}>
             <View style={[styles.flex1, styles.flexColumn, styles.justifyHorizontalCenter]}>
                 <View style={[styles.flex1]}></View>
-                <MaterialCommunityIcons name="plus-circle-outline" size={width/16} style={[styles.flex2]}/>
-                <Text style={[styles.flex2]}>{props.title}</Text>
+                <MaterialCommunityIcons name="plus-circle-outline" size={width/16} style={[styles.flex2, styles.colorWhite]}/>
+                <Text style={[styles.flex2, styles.colorWhite]}>{props.title}</Text>
             </View>
         </TouchableOpacity>
     )

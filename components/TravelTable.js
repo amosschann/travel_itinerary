@@ -18,11 +18,11 @@ export default function TravelTable ({ props }) {
             return(
                 <View style={[styles.flexRow, styles.paddingUpDown5]}>
                     <View style={[styles.flex3, styles.justifyVerticalCenter]}>
-                        <Text style={styles.travelHeader}>{props.headerTitle}</Text>
+                        <Text style={[styles.travelHeader, styles.colorDarkBlue]}>{props.headerTitle}</Text>
                     </View>
                     <TouchableOpacity onPress={() => props.navigate('TravelsScreen', { navigateType: props.navigateType })}>
                         <View style={[styles.flex1, styles.justifyVerticalCenter]}>
-                            <Text> View All → </Text>
+                            <Text style={styles.colorDarkBlue}> View All → </Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -50,11 +50,11 @@ export default function TravelTable ({ props }) {
                             }
                         />
                         <Cell
-                            contentContainerStyle={[styles.travelCellTitle]}
+                            contentContainerStyle={[styles.travelCellTitle, styles.backgroundDarkBlue]}
                             cellContentView={
                                 <View style={styles.justifyHorizontalCenter}>
-                                    <Text style={[styles.paddingUpDown5, styles.font20]}>{props.tripName}</Text>
-                                    <Text style={[styles.paddingUpDown5, styles.font15]}>{props.tripLocation}</Text>
+                                    <Text style={[styles.paddingUpDown5, styles.font20, styles.colorWhite]}>{props.tripName}</Text>
+                                    <Text style={[styles.paddingUpDown5, styles.font15, styles.colorWhite]}>{props.tripLocation}</Text>
                                 </View>
                             }
                         />

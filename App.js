@@ -43,7 +43,7 @@ function MainApp() {
             tabBarInactiveTintColor: 'grey',
           })}
         >
-          {/* POST LOGIN */}
+          {/* POST SignIn */}
           {HomeTabScreen()}
           {AddTabScreen()}
           {ProfileTabScreen()}
@@ -51,7 +51,7 @@ function MainApp() {
       ) :
         (
           <>
-            {/* PRE LOGIN */}
+            {/* PRE SignIn */}
             {SignInStackScreen()}
             {SignUpStackScreen()}
           </>
