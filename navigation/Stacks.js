@@ -55,6 +55,7 @@ export function AddStackScreen() {
           title: 'Add Travels' 
         }}
       />
+      {travelStackScreen()}
     </AddStack.Navigator>
   );
 }

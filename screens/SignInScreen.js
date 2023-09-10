@@ -4,6 +4,9 @@ import { useRoute } from '@react-navigation/native';
 import { ButtonV1 } from '../components/Buttons';
 import styles from '../components/Style';
 import { useAuth } from '../components/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
+
 // import { Cell, Section, TableView } from 'react-native-tableview-simple';
 // const { width } = Dimensions.get('screen');
 
@@ -11,6 +14,68 @@ export default function SignInScreen ({ navigation: { navigate }, props }){
     const {signIn} = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
+
+
+    function submitSignIn() {
+        let url = process.env.EXPO_PUBLIC_API_URL + 'api/auth/signIn'; 
+
+        //empty check
+        if (
+            email === '' ||
+            password === '' 
+        ) {
+            alert('incorrect username or password');
+            return;
+        }
+
+        let postData = {
+            'email': email.toLowerCase(),
+            'password': password
+        };
+        console.log(url);
+
+        fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            redirect: 'follow',
+            referrer: 'client',
+            body: JSON.stringify(postData)
+        })
+        .then((response) => {
+            console.log(response.status)
+            if (response.ok) {
+                return response.json();
+            } else if (response.status === 500) {
+                return response.json().then((error) => {
+                    Alert.alert( error.message);
+                });
+            } else {
+                Alert.alert('connection error');
+            }
+        })
+        .then(async (jsonResponse) => {
+            if (jsonResponse !== undefined) {
+                console.log(jsonResponse);
+                //store key
+                try {
+                    await SecureStore.setItemAsync('accessToken', jsonResponse.accessToken);
+                  } catch (e) {
+                    Alert.alert('connection error');
+                    return;
+                  }
+                signIn();
+            }
+        })
+        .catch((err) => {
+            console.error('Fetch error:', err);
+        });
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -57,7 +122,7 @@ export default function SignInScreen ({ navigation: { navigate }, props }){
 
                     <View style={[styles.flex1]}/>
 
-                    <ButtonV1 props={{text: "Sign In", onPress: signIn}}/>
+                    <ButtonV1 props={{text: "Sign In", onPress: submitSignIn}}/>
                     <View style={[styles.flex3, styles.justifyHorizontalCenter, styles.justifyVerticalCenter]}> 
                         <View style={[styles.flex1]}/>
                         <View style={[styles.flex1]}>

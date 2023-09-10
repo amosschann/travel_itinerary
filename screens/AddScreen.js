@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, TextInput, ImageBackground, KeyboardAvoidingView} from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { ButtonV1 } from '../components/Buttons';
@@ -7,17 +7,81 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import CountryPicker from 'react-native-country-picker-modal'
 import { Country } from 'react-native-country-picker-modal';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { getAccessToken } from '../helpers/AccessTokenHelper';
 
 export default function AddScreen ({ navigation, props }){
+    const [tripTitle, setTripTitle] = useState('')
     const [destinationName, setDestinationName] = useState('Select Destination');
     const [departureDate, setDepartureDate] = useState(new Date());
     const [returnDate, setReturnDate] = useState(new Date());
     const [countryPickerVisible, setCountryPickerVisible ] = useState(false);
+    const [accessToken, setAccessToken] = useState('');
+
+    useEffect(() => {
+        getAccessToken().then(accessToken => {
+            setAccessToken(accessToken);
+        })
+        
+    }, []);
 
 
-    function submitSignUp() {
-        console.log(destinationName, departureDate, returnDate);
-        navigation.goBack()
+    function submitAddTravels() {
+        let url = process.env.EXPO_PUBLIC_API_URL + 'api/travels/add-travels';
+
+        //empty check
+        if ( tripTitle === '' || destinationName === '' ) {
+            alert('missing field');
+            return;
+        }
+
+
+        let postData = {
+            'title': tripTitle,
+            'destination': destinationName,
+            'departureDate': departureDate.toISOString().split('T')[0],
+            'returnDate': returnDate.toISOString().split('T')[0],
+        };
+
+        fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization' : accessToken
+            },
+            redirect: 'follow',
+            referrer: 'client',
+            body: JSON.stringify(postData)
+        })
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else if (response.status === 500) {
+                return response.json().then((error) => {
+                    Alert.alert( error.message);
+                });
+            } else {
+                Alert.alert('unkown error occurred');
+            }
+        })
+        .then((jsonResponse) => {
+            if (jsonResponse !== undefined) {
+                console.log(jsonResponse)
+                Alert.alert('new travel created');
+                setTripTitle('');
+                setDestinationName('');
+                setDepartureDate(new Date());
+                setReturnDate(new Date());
+                navigation.navigate('TravelsScreen', { navigateType: 'Upcoming' });
+            }
+        })
+        .catch((err) => {
+            console.error('Fetch error:', err);
+        });
+
     }
 
     const onSelect = (country: Country) => {
@@ -42,6 +106,19 @@ export default function AddScreen ({ navigation, props }){
                         <View style={[styles.flex1, styles.backgroundDarkBlue]}/>
                     </View>
                     <View style={[styles.flex1]}/>
+
+                    <View style={[styles.flex1, styles.flexRow]}>
+                        <View style={[styles.flex1]}/>
+                        <TextInput
+                            style={[styles.flex5, styles.borderRadiusAllBlack10, styles.width100, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.textAlignCenter, styles.marginBottomTop5]}
+                            placeholder="Trip Title"
+                            placeholderTextColor="#003f5c"
+                            value={tripTitle}
+                            maxLength={16}
+                            onChangeText={(tripTitle) => setTripTitle(tripTitle)}
+                        /> 
+                        <View style={[styles.flex1]}/>
+                    </View>
                     
                     <View style={[styles.flex1, styles.flexColumn]}>
                         <View style={[styles.flex1, styles.flexRow]}>
@@ -116,7 +193,7 @@ export default function AddScreen ({ navigation, props }){
                         </View>
                     </View>
 
-                    <ButtonV1 props={{text: "Add a Travel", onPress:submitSignUp}}/>
+                    <ButtonV1 props={{text: "Add a Travel", onPress:submitAddTravels}}/>
                     
                     <View style={[styles.flex1, styles.justifyHorizontalCenter, styles.justifyVerticalCenter]} /> 
                 </View>

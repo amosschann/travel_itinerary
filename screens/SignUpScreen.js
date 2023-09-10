@@ -15,8 +15,67 @@ export default function SignUpScreen ({ navigation }){
 
 
     function submitSignUp() {
-        console.log(profileName, email, password, confirmPassword);
-        navigation.goBack()
+        let url = process.env.EXPO_PUBLIC_API_URL + 'api/users/signup';
+
+        //empty check
+        if (
+            profileName === '' ||
+            email === '' ||
+            password === '' ||
+            confirmPassword === ''
+        ) {
+            alert('missing field');
+            return;
+        }
+
+        //password check
+        if (password !== confirmPassword) {
+            alert('mismatched password');
+            return;
+        }
+
+        let postData = {
+            'profileName': profileName,
+            'email': email.toLowerCase(),
+            'password': password
+        };
+        console.log(url);
+
+        fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            redirect: 'follow',
+            referrer: 'client',
+            body: JSON.stringify(postData)
+        })
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else if (response.status === 500) {
+                return response.json().then((error) => {
+                    Alert.alert( error.message);
+                });
+            } else {
+                Alert.alert('unkown error occurred');
+            }
+        })
+        .then((jsonResponse) => {
+            if (jsonResponse !== undefined) {
+                console.log(jsonResponse);
+                alert('Sign Up Success')
+                navigation.goBack();
+            }
+        })
+        .catch((err) => {
+            console.error('Fetch error:', err);
+        });
+
     }
 
     return (
@@ -70,6 +129,8 @@ export default function SignUpScreen ({ navigation }){
                             placeholderTextColor="#003f5c"
                             secureTextEntry={true}
                             maxLength={16}
+                            textContentType={'oneTimeCode'}
+                            blurOnSubmit={false}
                             onChangeText={(password) => setPassword(password)}
                         />
                         <View style={[styles.flex1]}/>
@@ -82,6 +143,7 @@ export default function SignUpScreen ({ navigation }){
                             placeholder="Confirm Password"
                             placeholderTextColor="#003f5c"
                             secureTextEntry={true}
+                            textContentType={'oneTimeCode'}
                             maxLength={16}
                             onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
                         />
