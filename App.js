@@ -7,11 +7,26 @@ import { NavigationContainer } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SignInStackScreen, SignUpStackScreen } from './navigation/Stacks';
 import { HomeTabScreen, ProfileTabScreen, AddTabScreen } from "./navigation/Tabs"
+import PageLoad from './components/PageLoad';
+import styles from './components/Style';
 
 const Tab = createBottomTabNavigator();
 
 function MainApp() {
   const { isSignedIn } = useAuth();
+
+  if (isSignedIn === null) {
+    //handles the loading state
+    //pageload
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={[styles.mainView]}>
+          <PageLoad/>
+        </View>
+      </SafeAreaView>
+    );
+
+  }
 
   return (
     <NavigationContainer>

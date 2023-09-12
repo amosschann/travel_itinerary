@@ -55,6 +55,7 @@ export default function TravelTable ({ props }) {
                                 <View style={styles.justifyHorizontalCenter}>
                                     <Text style={[styles.paddingUpDown5, styles.font20, styles.colorWhite]}>{props.tripName}</Text>
                                     <Text style={[styles.paddingUpDown5, styles.font15, styles.colorWhite]}>{props.tripLocation}</Text>
+                                    <Text style={[styles.paddingUpDown5, styles.font15, styles.colorWhite]}>{props.startDate}</Text>
                                 </View>
                             }
                         />

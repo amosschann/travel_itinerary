@@ -3,22 +3,28 @@ import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, To
 import styles from '../components/Style';
 import TravelTable from '../components/TravelTable'
 import { getAccessToken } from '../helpers/AccessTokenHelper';
+import { formatDate } from '../helpers/DateFormatHelper';
 
 export default function HomeScreen({ navigation: { navigate }, props }){
     const [accessToken, setAccessToken] = useState('');
+    const [completedTitle, setCompletedTitle] = useState('No Upcoming Travels');
+    const [upcomingTitle, setUpcomingTitle] = useState('No Upcoming Travels');
+    const [completedeLocation, setCompletedLocation] = useState('Add Your Travels');
+    const [upcomingLocation, setUpcomingLocation] = useState('Add Your Travels');
+    const [completedStartDate, setCompletedStartDate] = useState('--/--/--')
+    const [upcomingStartDate, setUpcomingStartDate] = useState('--/--/--')
 
     useEffect(() => {
         //initial load from login
         getAccessToken().then(accessToken => {
             setAccessToken(accessToken);
         })
-        console.log('calleddd')
     }, []);
 
     useEffect(() => {
         //initial load from login
         if (accessToken !== '') {
-            // console.log(accessToken);
+            fetchTravels();
         }
         
     }, [accessToken]);
@@ -26,7 +32,6 @@ export default function HomeScreen({ navigation: { navigate }, props }){
 
     function fetchTravels() {
         let url = process.env.EXPO_PUBLIC_API_URL + 'api/travels/get-travels'; 
-        console.log(url)
         fetch(url, {
             method: 'GET',
             mode: 'cors',
@@ -45,7 +50,14 @@ export default function HomeScreen({ navigation: { navigate }, props }){
         })
         .then((jsonResponse) => {
             if (jsonResponse !== undefined) {
-                console.log(jsonResponse);
+                let completedTravelResponse = jsonResponse.completedTravel;
+                let upcomingTravelResponse = jsonResponse.upcomingTravel;
+                setCompletedTitle(completedTravelResponse.title);
+                setCompletedLocation(completedTravelResponse.name);
+                setUpcomingTitle(upcomingTravelResponse.title);
+                setUpcomingLocation(upcomingTravelResponse.name);
+                setUpcomingStartDate(formatDate(upcomingTravelResponse.start_date));
+                setCompletedStartDate(formatDate(completedTravelResponse.start_date));
                 
             }
         })
@@ -64,8 +76,9 @@ export default function HomeScreen({ navigation: { navigate }, props }){
                             key:"upcomingTravel",
                             type:"default1", 
                             headerTitle: "Upcoming Travels", 
-                            tripName: "No Upcoming Travels",
-                            tripLocation: "Add Your Travels",
+                            tripName: upcomingTitle,
+                            tripLocation: upcomingLocation,
+                            startDate: upcomingStartDate,
                             navigate: navigate, 
                             navigateType: "Upcoming"
                         }}
@@ -78,8 +91,9 @@ export default function HomeScreen({ navigation: { navigate }, props }){
                             key:"completedTravel",
                             type:"default2", 
                             headerTitle: "Completed Travels", 
-                            tripName: "No Completed Travels",
-                            tripLocation: "Add Your Travels",
+                            tripName: completedTitle,
+                            tripLocation: completedeLocation,
+                            startDate: completedStartDate,
                             navigate: navigate, 
                             navigateType: "Completed"
                             }}

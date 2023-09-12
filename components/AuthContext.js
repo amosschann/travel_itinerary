@@ -1,26 +1,38 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { getAccessToken } from '../helpers/AccessTokenHelper';
+import { getAccessToken, fetchValidTokenCheck } from '../helpers/AccessTokenHelper';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(null);
 
   useEffect(() => {
-    //fetch the access token when the component mounts
-    getAccessToken()
-      .then((accessToken) => {
-        if(accessToken !== null) {
-          setIsSignedIn(true);
+    const checkToken = async () => {
+      try {
+        const accessToken = await getAccessToken();
+  
+        if (accessToken !== null) {
+          const result = await fetchValidTokenCheck(accessToken);
+  
+          if (result === true) {
+            console.log('Token valid');
+            setIsSignedIn(true);
+          } else {
+            console.log('Token invalid');
+            setIsSignedIn(false);
+          }
         } else {
           setIsSignedIn(false);
         }
-      })
-      .catch((error) => {
-        //handle any errors if needed
-        console.error('Error fetching access token:', error);
-      });
+      } catch (error) {
+        console.error('Error fetching or checking access token:', error);
+      }
+    };
+  
+    checkToken();
   }, []);
+  
+
 
   const signIn = () => {
     setIsSignedIn(true);
