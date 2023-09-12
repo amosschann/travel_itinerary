@@ -21,7 +21,7 @@ export function ButtonV1 ({props}) {
 
 export function AddButton ({props}) {
     return (
-        <TouchableOpacity style={[styles.flex1]} onPress={props.onPress}>
+        <TouchableOpacity style={[styles.flex1]} onPress={props.onPressButton}>
             <View style={[styles.flex1, styles.flexColumn, styles.justifyHorizontalCenter]}>
                 <View style={[styles.flex1]}></View>
                 <MaterialCommunityIcons name="plus-circle-outline" size={width/16} style={[styles.flex2, styles.colorWhite]}/>

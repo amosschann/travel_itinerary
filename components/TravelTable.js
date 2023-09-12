@@ -1,6 +1,7 @@
 import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button } from 'react-native';
 import { Cell, Section, TableView } from 'react-native-tableview-simple';
 import styles from '../components/Style';
+import { formatDate } from '../helpers/DateFormatHelper';
 
 
 export default function TravelTable ({ props }) {
@@ -39,7 +40,9 @@ export default function TravelTable ({ props }) {
                     hideSurroundingSeparators={true}
                     roundedCorners={true}
                 >
-                    <TouchableOpacity style={[styles.borderRadiusTop, styles.borderRadiusBottom]} onPress={() => props.navigate('ItineraryScreen', { travelid: 'palceholder' })}>
+                    <TouchableOpacity style={[styles.borderRadiusTop, styles.borderRadiusBottom]} onPress={() => 
+                        props.navigate('ItineraryScreen', { travelid: props.id, start_date: props.startDate, end_date: props.endDate })
+                        }>
                         <Cell
                             contentContainerStyle={[styles.flexRow, styles.paddingLeft0, styles.paddingRight0]}
                             cellContentView={
@@ -52,10 +55,10 @@ export default function TravelTable ({ props }) {
                         <Cell
                             contentContainerStyle={[styles.travelCellTitle, styles.backgroundDarkBlue]}
                             cellContentView={
-                                <View style={styles.justifyHorizontalCenter}>
+                                <View style={[styles.justifyHorizontalCenter, styles.width100]}>
                                     <Text style={[styles.paddingUpDown5, styles.font20, styles.colorWhite]}>{props.tripName}</Text>
                                     <Text style={[styles.paddingUpDown5, styles.font15, styles.colorWhite]}>{props.tripLocation}</Text>
-                                    <Text style={[styles.paddingUpDown5, styles.font15, styles.colorWhite]}>{props.startDate}</Text>
+                                    <Text style={[styles.paddingUpDown5, styles.font15, styles.colorWhite]}>{formatDate(props.startDate) + " ~ " + formatDate(props.endDate)}</Text>       
                                 </View>
                             }
                         />

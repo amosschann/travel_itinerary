@@ -4,32 +4,84 @@ import { useRoute } from '@react-navigation/native';
 import styles from '../components/Style';
 import TravelTable from '../components/TravelTable';
 import PageLoad from '../components/PageLoad';
+import { getAccessToken } from '../helpers/AccessTokenHelper';
 // import { Cell, Section, TableView } from 'react-native-tableview-simple';
 // const { width } = Dimensions.get('screen');
 
 export default function TravelsScreen ({ navigation: { navigate }, route }){
+    const [accessToken, setAccessToken] = useState('');
     const [isLoading, setIsLoading] = useState(true);
-    const [exampleGetTravelsResponse, setExampleGetTravelsResponse] = useState();
+    const [travelsResponse, setTravelsResponse] = useState([{
+        title: 'No Travels',
+        name: "Add Your Travels",
+        start_date: '--/--/--',
+        end_date: '--/--/--',
+        id: 'default',
+    }]);
 
     useEffect(() => {
-        setTimeout(() => {
+        //initial load from login
+        getAccessToken().then(accessToken => {
+            setAccessToken(accessToken);
+        })
+    }, []);
+
+    useEffect(() => {
+        if (accessToken !== '') {
             //fetch travels
             if (route.params.navigateType === "Upcoming") {
                 //api call to get upcoming travels
-                console.log('upcomming fetch')
+                fetchTravels("Upcoming");
             } else if (route.params.navigateType === "Completed") {
                 //api call to get completed travels
-                console.log('completed fetch')
+                fetchTravels("Completed");
             }
-            setExampleGetTravelsResponse([
-                {type:"default1", navigate: navigate, tripName: "Trip 1 Example", tripLocation: "Singapore"}, 
-                {type:"default2", navigate: navigate, tripName: "Trip 2 Example", tripLocation: "London , England"},
-                {type:"default1", navigate: navigate, tripName: "Trip 3 Example", tripLocation: "Singapore"}, 
-                {type:"default2", navigate: navigate, tripName: "Trip 4 Example", tripLocation: "London , England"}
-            ]);
-            setIsLoading(false);
-        }, 1000);
-    }, []);
+        }
+    }, [accessToken]);
+
+    useEffect(() => {
+        setIsLoading(false);  
+    }, [travelsResponse]);
+
+
+    function fetchTravels(type) {
+        let url;
+        if (type === "Upcoming") {
+            url = process.env.EXPO_PUBLIC_API_URL + 'api/travels/get-upcoming-travels'; 
+        } else if (type === "Completed") {
+            url = process.env.EXPO_PUBLIC_API_URL + 'api/travels/get-completed-travels'; 
+        }
+        console.log(accessToken)
+        fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization' : accessToken
+            },
+            redirect: 'follow',
+            referrer: 'client',
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((jsonResponse) => {
+            if (jsonResponse !== undefined) {
+                console.log(jsonResponse);
+                if (jsonResponse.length !== 0) {
+                    setTravelsResponse(jsonResponse);
+                }
+            }
+        })
+        .catch((err) => {
+            console.error('Fetch error:', err);
+        });
+
+    }
+
 
     if(isLoading) {
         return (
@@ -48,14 +100,16 @@ export default function TravelsScreen ({ navigation: { navigate }, route }){
                 </View>
                 <View style={[styles.flex10, styles.width]}>
                     <ScrollView style={styles.mainView}>
-                        {exampleGetTravelsResponse.map((resp, index) => (
+                        {travelsResponse.map((resp, index) => (
                             <TravelTable
                                 key={'travelTable-' + index}
                                 props={{
                                     header: false,
-                                    type:resp.type,
-                                    tripName:resp.tripName,
-                                    tripLocation:resp.tripLocation,
+                                    type:resp.images?resp.images: route.params.navigateType ==="Upcoming"? "default1" : "default2",
+                                    tripName:resp.title,
+                                    startDate: resp.start_date,
+                                    endDate: resp.end_date,
+                                    tripLocation:resp.name,
                                     navigate:navigate
                                 }}
                             />

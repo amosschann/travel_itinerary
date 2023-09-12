@@ -9,7 +9,6 @@ const { width } = Dimensions.get('screen');
 export default function ItineraryImages({ props }) {
     const ref = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(props.index);
-    
     const renderItem = useCallback(({ item, index }) => (
         <View style={[styles.flex1, styles.paddingUpDown10]}>
         <TouchableOpacity style={[styles.flex1, styles.flexColumn, styles.borderRadiusTop, styles.borderRadiusBottom]} onPress={() => {

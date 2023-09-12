@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ImageBackground, ActivityIndicator } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ImageBackground, ActivityIndicator, TextInput } from 'react-native';
 import { Cell, Section, TableView } from 'react-native-tableview-simple';
-import { useRoute } from '@react-navigation/native';
 import styles from '../components/Style';
+import Modal from "react-native-modal";
 import ItineraryTableRows from '../components/ItineraryTableRows';
 import ItineraryImages from '../components/ItinereryImages';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AddButton } from '../components/Buttons';
 import ImageView from "react-native-image-viewing";
 import PageLoad from '../components/PageLoad';
+import { getDates } from '../helpers/DateFormatHelper';
 
 
 
@@ -36,6 +36,9 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
         }
     ];
 
+    const [activityName, setActivityName] = useState();
+    const [startTime, setStartTime] = useState();
+    const [endTime, setEndTime] = useState();
     const [itineraries, setitineraries] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isLoadingRows, setIsLoadingRows] = useState(false);
@@ -44,6 +47,7 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
     const [images, setImages] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [viewFullScreenImages, setViewFullScreenImages] = useState(false);
+    const [isModalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         setTimeout(() => {
@@ -58,7 +62,8 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
             //fetch images for day
             setImages(example[0].images);
             //fetch overal dates
-            setDates(['10/09/23', '11/09/23', '12/09/23']);
+
+            setDates(getDates(route.params.start_date, route.params.end_date));
             //remove loading
             setIsLoading(false);
 
@@ -86,6 +91,10 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
         );
     }
 
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+      };
+
     const changeIndex = (index) => {
         setCurrentIndex(index);
     }
@@ -105,6 +114,56 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
         );
     }
 
+    function WrapperComponent() {
+        return (
+          <View>
+            <Modal isVisible={isModalVisible}>
+                <View style={[styles.flex1, styles.flexColumn]}>
+                <View style={[styles.flex1]}/>
+                <View style={[styles.flex1, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.backgroundBeige]}>
+                <View style={[styles.flex1, styles.flexRow]}>
+                        <View style={[styles.flex1]}/>
+                        <TextInput
+                            style={[styles.flex5, styles.borderRadiusAllBlack10, styles.width100, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.textAlignCenter, styles.marginBottomTop5]}
+                            placeholder="ActivityName"
+                            placeholderTextColor="#003f5c"
+                            maxLength={16}
+                            onChangeText={(activityName) => setActivityName(activityName)}
+                        /> 
+                        <View style={[styles.flex1]}/>
+                    </View>
+
+                    <View style={[styles.flex1, styles.flexRow]}>
+                        <View style={[styles.flex1]}/>
+                        <TextInput
+                            style={[styles.flex5, styles.borderRadiusAllBlack10, styles.width100, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.textAlignCenter, styles.marginBottomTop5]}
+                            placeholder="start time"
+                            placeholderTextColor="#003f5c"
+                            onChangeText={(startTime) => setStartTime(startTime)}
+                        />
+                        <View style={[styles.flex1]}/>
+                    </View>
+
+                    <View style={[styles.flex1, styles.flexRow]}>
+                        <View style={[styles.flex1]}/>
+                        <TextInput
+                            style={[styles.flex5, styles.borderRadiusAllBlack10, styles.width100, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.textAlignCenter, styles.marginBottomTop5]}
+                            placeholder="end time"
+                            placeholderTextColor="#003f5c"
+                            onChangeText={(endTime) => setEndTime(endTime)}
+                        />
+                        <View style={[styles.flex1]}/>
+                    </View>
+                    <Button title="Hide modal" onPress={toggleModal} />
+                </View>
+                <View style={[styles.flex1]}/>
+                    
+                </View>
+            </Modal>
+          </View>
+        );
+      }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={[styles.mainView, styles.flexColumn]}>
@@ -115,12 +174,13 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
                 {/* Add */}
                 <View style={[styles.flex1, styles.flexRow, styles.width, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.borderBlackTopBottom, styles.backgroundDarkBlue]}>
                         <AddButton props={{title: 'Add Photo'}}/>
-                        <AddButton props={{title: 'Add Itinerary'}}/>
+                        <AddButton props={{title: 'Add Itinerary', onPressButton: toggleModal}}/>
                 </View>
                 {/* Itinerary rows */}
                 <View style={[styles.flex6, styles.width]}>
                     <ItineraryTableRows props={{itineraries: itineraries, isLoading: isLoadingRows}}/>
                 </View>
+                {WrapperComponent()}
             </View>
         </SafeAreaView>
     );

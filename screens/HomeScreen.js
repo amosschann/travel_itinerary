@@ -3,16 +3,26 @@ import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, To
 import styles from '../components/Style';
 import TravelTable from '../components/TravelTable'
 import { getAccessToken } from '../helpers/AccessTokenHelper';
-import { formatDate } from '../helpers/DateFormatHelper';
+import { useIsFocused } from '@react-navigation/native';
+
 
 export default function HomeScreen({ navigation: { navigate }, props }){
     const [accessToken, setAccessToken] = useState('');
-    const [completedTitle, setCompletedTitle] = useState('No Upcoming Travels');
-    const [upcomingTitle, setUpcomingTitle] = useState('No Upcoming Travels');
-    const [completedeLocation, setCompletedLocation] = useState('Add Your Travels');
-    const [upcomingLocation, setUpcomingLocation] = useState('Add Your Travels');
-    const [completedStartDate, setCompletedStartDate] = useState('--/--/--')
-    const [upcomingStartDate, setUpcomingStartDate] = useState('--/--/--')
+    const isFocused = useIsFocused();
+    const [upcomingResponse, setUpcomingResponse] = useState({
+        title: 'No Upcoming Travels',
+        name: "Add Your Travels",
+        start_date: '--/--/--',
+        end_date:'--/--/--',
+        id: 'default'
+    })
+    const [completedResponse, setCompletedResponse] = useState({
+        title: 'No Upcoming Travels',
+        name: "Add Your Travels",
+        start_date: '--/--/--',
+        end_date:'--/--/--',
+        id: 'default'
+    })
 
     useEffect(() => {
         //initial load from login
@@ -29,6 +39,12 @@ export default function HomeScreen({ navigation: { navigate }, props }){
         
     }, [accessToken]);
 
+    useEffect(() => { 
+        console.log('refresh')
+        if (accessToken !== '') {
+            fetchTravels();
+        }
+    }, [isFocused])
 
     function fetchTravels() {
         let url = process.env.EXPO_PUBLIC_API_URL + 'api/travels/get-travels'; 
@@ -52,12 +68,8 @@ export default function HomeScreen({ navigation: { navigate }, props }){
             if (jsonResponse !== undefined) {
                 let completedTravelResponse = jsonResponse.completedTravel;
                 let upcomingTravelResponse = jsonResponse.upcomingTravel;
-                setCompletedTitle(completedTravelResponse.title);
-                setCompletedLocation(completedTravelResponse.name);
-                setUpcomingTitle(upcomingTravelResponse.title);
-                setUpcomingLocation(upcomingTravelResponse.name);
-                setUpcomingStartDate(formatDate(upcomingTravelResponse.start_date));
-                setCompletedStartDate(formatDate(completedTravelResponse.start_date));
+                setCompletedResponse(completedTravelResponse);
+                setUpcomingResponse(upcomingTravelResponse);
                 
             }
         })
@@ -76,9 +88,11 @@ export default function HomeScreen({ navigation: { navigate }, props }){
                             key:"upcomingTravel",
                             type:"default1", 
                             headerTitle: "Upcoming Travels", 
-                            tripName: upcomingTitle,
-                            tripLocation: upcomingLocation,
-                            startDate: upcomingStartDate,
+                            tripName: upcomingResponse.title,
+                            tripLocation: upcomingResponse.name,
+                            startDate: upcomingResponse.start_date,
+                            endDate: upcomingResponse.end_date,
+                            id: upcomingResponse.id,
                             navigate: navigate, 
                             navigateType: "Upcoming"
                         }}
@@ -91,27 +105,17 @@ export default function HomeScreen({ navigation: { navigate }, props }){
                             key:"completedTravel",
                             type:"default2", 
                             headerTitle: "Completed Travels", 
-                            tripName: completedTitle,
-                            tripLocation: completedeLocation,
-                            startDate: completedStartDate,
+                            tripName: completedResponse.title,
+                            tripLocation: completedResponse.name,
+                            startDate: completedResponse.start_date,
+                            endDate: completedResponse.end_date,
+                            id: completedResponse.id,
                             navigate: navigate, 
                             navigateType: "Completed"
                             }}
                     />
                 </View>
-
-                <Button
-                    style={styles.backgroundWhite}
-                    onPress={async () => {
-                        fetchTravels()
-                    }}
-                    title="test fetch"
-                    color="#841584"
-                    accessibilityLabel="test"
-                />
             </View>
-
-
         </SafeAreaView>
     );
 }
