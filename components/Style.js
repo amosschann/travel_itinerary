@@ -73,6 +73,13 @@ const styles = StyleSheet.create({
       justifyHorizontalCenter: {
         alignItems: 'center'
       },
+      justifyHorizontalStart: {
+        alignItems: 'flex-start'
+      },
+      justifyHorizontalEnd: {
+        alignItems: 'flex-end'
+      },
+
       //widths
       width: {
         width: width

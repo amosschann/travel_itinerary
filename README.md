@@ -7,7 +7,8 @@ INSTALLATION INSTRUCTIONS
 
 
 Take Note:
-- Any npm installs / uninstalls after the patch has been done will require a full removal and reinstallation of node_modules and package-lock.json
+- Any additional npm installs will require a full removal and reinstallation of node_modules and package-lock.json
+- Any issues with npm packages will also require a full removal and reinstallation of node_modules and package-lock.json
     - rm -rf node_modules
     - remove package-lock.json manually
     - remove any unwanted packages from package.json

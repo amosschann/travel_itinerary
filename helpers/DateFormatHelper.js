@@ -18,3 +18,24 @@ export function getDates(startDate, endDate) {
     }
     return dateList;
 }
+
+export function convertToMySQLTime(jsDateTimeString) {
+    const jsDate = new Date(jsDateTimeString);
+    const hours = String(jsDate.getHours()).padStart(2, '0');
+    const minutes = String(jsDate.getMinutes()).padStart(2, '0');
+    const seconds = String(jsDate.getSeconds()).padStart(2, '0');
+    
+    return `${hours}:${minutes}:${seconds}`;
+}
+
+export function convertToMySQLDateFormat(dateString) {
+    const parts = dateString.split('/');
+    if (parts.length === 3) {
+      const month = String(parts[0]).padStart(2, '0');
+      const day = String(parts[1]).padStart(2, '0');
+      const year = `20${parts[2]}`; // Assuming years are in the 21st century
+  
+      return `${year}-${month}-${day}`;
+    }
+    return null; // Invalid date format
+  }
