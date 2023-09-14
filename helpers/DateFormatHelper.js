@@ -31,8 +31,8 @@ export function convertToMySQLTime(jsDateTimeString) {
 export function convertToMySQLDateFormat(dateString) {
     const parts = dateString.split('/');
     if (parts.length === 3) {
-      const month = String(parts[0]).padStart(2, '0');
-      const day = String(parts[1]).padStart(2, '0');
+      const day = String(parts[0]).padStart(2, '0');
+      const month = String(parts[1]).padStart(2, '0');
       const year = `20${parts[2]}`; // Assuming years are in the 21st century
   
       return `${year}-${month}-${day}`;

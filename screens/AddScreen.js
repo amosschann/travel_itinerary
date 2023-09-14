@@ -8,6 +8,7 @@ import CountryPicker from 'react-native-country-picker-modal'
 import { Country } from 'react-native-country-picker-modal';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getAccessToken } from '../helpers/AccessTokenHelper';
+import * as Haptics from 'expo-haptics';
 
 export default function AddScreen ({ navigation, props }){
     const [tripTitle, setTripTitle] = useState('')
@@ -71,6 +72,9 @@ export default function AddScreen ({ navigation, props }){
             if (jsonResponse !== undefined) {
                 console.log(jsonResponse)
                 Alert.alert('new travel created');
+                Haptics.notificationAsync(
+                    Haptics.NotificationFeedbackType.Success
+                );
                 setTripTitle('');
                 setDestinationName('');
                 setDepartureDate(new Date());

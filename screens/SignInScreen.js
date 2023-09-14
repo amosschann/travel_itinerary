@@ -6,6 +6,7 @@ import styles from '../components/Style';
 import { useAuth } from '../components/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from 'expo-secure-store';
+import * as Haptics from 'expo-haptics';
 
 // import { Cell, Section, TableView } from 'react-native-tableview-simple';
 // const { width } = Dimensions.get('screen');
@@ -32,7 +33,6 @@ export default function SignInScreen ({ navigation: { navigate }, props }){
             'email': email.toLowerCase(),
             'password': password
         };
-        console.log(url);
 
         fetch(url, {
             method: 'POST',
@@ -48,7 +48,6 @@ export default function SignInScreen ({ navigation: { navigate }, props }){
             body: JSON.stringify(postData)
         })
         .then((response) => {
-            console.log(response.status)
             if (response.ok) {
                 return response.json();
             } else if (response.status === 500) {
@@ -61,14 +60,16 @@ export default function SignInScreen ({ navigation: { navigate }, props }){
         })
         .then(async (jsonResponse) => {
             if (jsonResponse !== undefined) {
-                console.log(jsonResponse);
                 //store key
                 try {
                     await SecureStore.setItemAsync('accessToken', jsonResponse.accessToken);
-                  } catch (e) {
+                } catch (e) {
                     Alert.alert('connection error');
-                    return;
-                  }
+                return;
+                }
+                Haptics.notificationAsync(
+                    Haptics.NotificationFeedbackType.Success
+                );
                 signIn();
             }
         })

@@ -4,6 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import { ButtonV1 } from '../components/Buttons';
 import styles from '../components/Style';
 import { useAuth } from '../components/AuthContext';
+import * as Haptics from 'expo-haptics';
 // import { Cell, Section, TableView } from 'react-native-tableview-simple';
 // const { width } = Dimensions.get('screen');
 
@@ -39,7 +40,6 @@ export default function SignUpScreen ({ navigation }){
             'email': email.toLowerCase(),
             'password': password
         };
-        console.log(url);
 
         fetch(url, {
             method: 'POST',
@@ -69,6 +69,9 @@ export default function SignUpScreen ({ navigation }){
             if (jsonResponse !== undefined) {
                 console.log(jsonResponse);
                 alert('Sign Up Success')
+                Haptics.notificationAsync(
+                    Haptics.NotificationFeedbackType.Success
+                );
                 navigation.goBack();
             }
         })

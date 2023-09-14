@@ -2,11 +2,11 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button } from 'react-native';
 import { Cell, Section, TableView } from 'react-native-tableview-simple';
 import { useAuth } from './AuthContext';
-import { useRoute } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from 'expo-secure-store';
+import * as Haptics from 'expo-haptics';
 
 // import { Cell, Section, TableView } from 'react-native-tableview-simple';
 const { height } = Dimensions.get('screen');
@@ -25,6 +25,9 @@ export default function UserProfileRow ({props}){
                             console.error('Error clearing AsyncStorage data:', error);
                         }
                         signOut();
+                        Haptics.notificationAsync(
+                            Haptics.NotificationFeedbackType.Success
+                        );
                     }
                 }}>
                 <Cell

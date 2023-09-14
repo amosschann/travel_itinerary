@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ImageBackground, ActivityIndicator, TextInput } from 'react-native';
-import { Cell, Section, TableView } from 'react-native-tableview-simple';
 import styles from '../components/Style';
 import Modal from "react-native-modal";
 import ItineraryTableRows from '../components/ItineraryTableRows';
@@ -12,6 +11,7 @@ import { convertToMySQLDateFormat, convertToMySQLTime, getDates } from '../helpe
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { getAccessToken } from '../helpers/AccessTokenHelper';
+import * as Haptics from 'expo-haptics';
 
 
 
@@ -180,6 +180,9 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
                     fetchCurrentDateItinerary();
                     toggleAddModel();
                     Alert.alert('successfully added activity')
+                    Haptics.notificationAsync(
+                        Haptics.NotificationFeedbackType.Success
+                    )
                 }
             })
             .catch((err) => {
@@ -217,7 +220,10 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
                     setDeleteId('');
                     fetchCurrentDateItinerary();
                     toggleDeleteModel();
-                    Alert.alert('successfully delete activity')
+                    Alert.alert('successfully delete activity');
+                    Haptics.notificationAsync(
+                        Haptics.NotificationFeedbackType.Success
+                    );
                 }
             })
             .catch((err) => {

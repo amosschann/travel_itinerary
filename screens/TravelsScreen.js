@@ -51,7 +51,6 @@ export default function TravelsScreen ({ navigation: { navigate }, route }){
         } else if (type === "Completed") {
             url = process.env.EXPO_PUBLIC_API_URL + 'api/travels/get-completed-travels'; 
         }
-        console.log(accessToken)
         fetch(url, {
             method: 'GET',
             mode: 'cors',
@@ -70,7 +69,6 @@ export default function TravelsScreen ({ navigation: { navigate }, route }){
         })
         .then((jsonResponse) => {
             if (jsonResponse !== undefined) {
-                console.log(jsonResponse);
                 if (jsonResponse.length !== 0) {
                     setTravelsResponse(jsonResponse);
                 }
