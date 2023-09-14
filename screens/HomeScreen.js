@@ -40,7 +40,6 @@ export default function HomeScreen({ navigation: { navigate }, props }){
     }, [accessToken]);
 
     useEffect(() => { 
-        console.log('refresh')
         if (accessToken !== '') {
             fetchTravels();
         }

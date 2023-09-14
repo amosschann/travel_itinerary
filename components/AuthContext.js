@@ -15,10 +15,10 @@ export function AuthProvider({ children }) {
           const result = await fetchValidTokenCheck(accessToken);
   
           if (result === true) {
-            console.log('Token valid');
+            // console.log('Token valid');
             setIsSignedIn(true);
           } else {
-            console.log('Token invalid');
+            // console.log('Token invalid');
             setIsSignedIn(false);
           }
         } else {

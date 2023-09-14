@@ -13,7 +13,6 @@ export default function ItineraryTableRows ({ props }){
         if (cellProps.index === 0) {
             borderTop = styles.borderBlackTop;
         }
-
         if (props.isLoading) {
             return (
                 <View style={[styles.height, styles.width, styles.justifyHorizontalCenter, styles.paddingTop20]}>
@@ -22,7 +21,11 @@ export default function ItineraryTableRows ({ props }){
             )
         }
         return (
-            <TouchableOpacity onPress={() => console.log('go to edit / delete')}>
+            <TouchableOpacity onPress={() => {
+                    if (cellProps.index !== 'none') {
+                        props.toggleDelete(); props.setDeleteId(cellProps.index)
+                    }
+                }}>
                 <Cell
                     contentContainerStyle={[styles.heightVH10, styles.justifyVerticalCenter, styles.borderBlackBottom, borderTop]}
                     cellContentView={
@@ -45,13 +48,12 @@ export default function ItineraryTableRows ({ props }){
     return (
         <ScrollView style={[styles.mainView]}>
             <TableView style={[]}>
-                    <Section key={'itinerarytable'}>
-                    {props.itineraries.map((resp, index) => (
-                        <CellRow key={'cellrow' + index} cellProps={{activityTime: resp.activityTime, activityName: resp.activityName, index:index}}/> 
-                    ))    
-                    }
-                       
-                    </Section>
+                <Section key={'itinerarytable'}>
+                {props.itineraries.map((resp, index) => (
+                    <CellRow key={'cellrow' + index} cellProps={{activityTime: resp.start_time.slice(0, -3) + '~' + resp.end_time.slice(0, -3), activityName: resp.activity_name, index:resp.id}}/> 
+                    ))
+                }
+                </Section>
             </TableView>
         </ScrollView>
     );
