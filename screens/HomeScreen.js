@@ -64,12 +64,15 @@ export default function HomeScreen({ navigation: { navigate }, props }){
             return response.json();
         })
         .then((jsonResponse) => {
-            if (jsonResponse !== undefined) {
+            if (Object.keys(jsonResponse).length !== 0) {
                 let completedTravelResponse = jsonResponse.completedTravel;
                 let upcomingTravelResponse = jsonResponse.upcomingTravel;
-                setCompletedResponse(completedTravelResponse);
-                setUpcomingResponse(upcomingTravelResponse);
-                
+                if (completedTravelResponse !== undefined) {
+                    setCompletedResponse(completedTravelResponse);
+                }
+                if (upcomingResponse !== undefined) {
+                    setUpcomingResponse(upcomingTravelResponse);
+                }
             }
         })
         .catch((err) => {

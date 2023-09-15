@@ -40,6 +40,7 @@ export default function SignUpScreen ({ navigation }){
             'email': email.toLowerCase(),
             'password': password
         };
+        console.log(url)
 
         fetch(url, {
             method: 'POST',

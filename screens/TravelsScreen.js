@@ -71,8 +71,11 @@ export default function TravelsScreen ({ navigation: { navigate }, route }){
             if (jsonResponse !== undefined) {
                 if (jsonResponse.length !== 0) {
                     setTravelsResponse(jsonResponse);
+                } else {
+                    setIsLoading(false);  
                 }
             }
+            setIsLoading(false);  
         })
         .catch((err) => {
             console.error('Fetch error:', err);
@@ -108,7 +111,8 @@ export default function TravelsScreen ({ navigation: { navigate }, route }){
                                     startDate: resp.start_date,
                                     endDate: resp.end_date,
                                     tripLocation:resp.name,
-                                    navigate:navigate
+                                    navigate:navigate,
+                                    id: resp.id
                                 }}
                             />
                             ))
