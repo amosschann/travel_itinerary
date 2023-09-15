@@ -12,33 +12,15 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { getAccessToken } from '../helpers/AccessTokenHelper';
 import * as Haptics from 'expo-haptics';
+import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 
 
 export default function ItineraryScreen ({ navigation: { navigate }, route }){
-    const example = [ 
-        {
-            itineraries: [
-                {activityTime: '07:00 - 08:00',activityName: 'Activity1'},
-                {activityTime: '08:00 - 09:30',activityName: 'Activity2'},
-                {activityTime: '09:30 - 11:00',activityName: 'Activity3'},
-                {activityTime: '11:00 - 12:00',activityName: 'Activity4'}
-            ], 
-            images: [{uri: 'https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/frholiday_vacation_travel_beach-image-kybdf8bh.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=e4b7fe83119657ac47e35811096da617'}]
-        },
-        {
-            itineraries: [
-                {activityTime: '07:00 - 08:00',activityName: 'Activity1'},
-                {activityTime: '08:00 - 09:30',activityName: 'Activity2'}
-            ], 
-            images: [{uri: 'https://p1.pxfuel.com/preview/811/128/969/vacation-destiny-travel-holiday.jpg'}]
-        },
-        {
-            itineraries: [], 
-            images: [{uri: 'https://live.staticflickr.com/3453/3268091255_44e7049809_b.jpg'}, {uri: 'https://p1.pxfuel.com/preview/811/128/969/vacation-destiny-travel-holiday.jpg'}, {uri: 'https://live.staticflickr.com/3453/3268091255_44e7049809_b.jpg'}]
-        }
-    ];
-
+    const image1 = require('../assets/itineraryImage3.jpg');
+    const exampleImageUri = Image.resolveAssetSource(image1).uri
     const [accessToken, setAccessToken] = useState('');
     const [initialCurrenDateLoad, setInitialCurrentDateLoad] = useState(true);
     const [startTimeForm, setStartTimeForm] = useState(new Date());
@@ -55,7 +37,8 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
     const [viewFullScreenImages, setViewFullScreenImages] = useState(false);
     const [isAddModalVisible, setAddModalVisible] = useState(false);
     const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
-    const [deleteId, setDeleteId] = useState('')
+    const [deleteId, setDeleteId] = useState('');
+    const [base64Image, setBase64Image] = useState('');
 
 
     useEffect(() => {
@@ -69,7 +52,6 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
         //fetch overall images (1 for each day)
         if (accessToken !== '') {
             //fetch images for day
-            setImages(example[0].images);
             //set travel overal dates
             setDates(getDates(route.params.start_date, route.params.end_date));
         }
@@ -81,7 +63,7 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
             setInitialCurrentDateLoad(false);
             let overalImage = []
             for (let i = 0; i < dates.length; i++) {
-                overalImage.push('https://live.staticflickr.com/3453/3268091255_44e7049809_b.jpg')
+                overalImage.push(exampleImageUri)
             }
             setOveralImages(overalImage);
             setIsLoading(false);
@@ -92,14 +74,21 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
         if (!initialCurrenDateLoad) {
             setCurrentDate(dates[currentIndex]) //change current date from carousel change of index
         }
-        setImages(example[currentIndex].images);
     }, [currentIndex]);
 
     useEffect(() => { //fetch itinerary
         if (accessToken !== '') {
-            fetchCurrentDateItinerary();
+            fetchCurrentDateItineraryAndMedias();
         }
     }, [currentDate]);
+
+    
+    useEffect(() => { //post image
+        if (accessToken !== '' && base64Image !== '') {
+            postMedia();
+            setBase64Image('');
+        }
+    }, [base64Image]);
     
     
     if(isLoading) {
@@ -177,7 +166,7 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
             .then((jsonResponse) => {
                 if (jsonResponse !== undefined) {
                     setActivityNameForm('');
-                    fetchCurrentDateItinerary();
+                    fetchCurrentDateItineraryAndMedias();
                     toggleAddModel();
                     Alert.alert('successfully added activity')
                     Haptics.notificationAsync(
@@ -193,45 +182,45 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
 
     function submitDeleteItinerary() {
         let url = process.env.EXPO_PUBLIC_API_URL + 'api/itinerary/delete-itinerary';
-            let postData = {
-                'activity_id': deleteId
-            };
-            fetch(url, {
-                method: 'POST',
-                mode: 'cors',
-                cache: 'no-cache',
-                credentials: 'same-origin',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'authorization' : accessToken
-                },
-                redirect: 'follow',
-                referrer: 'client',
-                body: JSON.stringify(postData)
-            })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-            })
-            .then((jsonResponse) => {
-                if (jsonResponse !== undefined) {
-                    setDeleteId('');
-                    fetchCurrentDateItinerary();
-                    toggleDeleteModel();
-                    Alert.alert('successfully delete activity');
-                    Haptics.notificationAsync(
-                        Haptics.NotificationFeedbackType.Success
-                    );
-                }
-            })
-            .catch((err) => {
-                console.error('Fetch error:', err);
-            }); 
+        let postData = {
+            'activity_id': deleteId
+        };
+        fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization' : accessToken
+            },
+            redirect: 'follow',
+            referrer: 'client',
+            body: JSON.stringify(postData)
+        })
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+        })
+        .then((jsonResponse) => {
+            if (jsonResponse !== undefined) {
+                setDeleteId('');
+                fetchCurrentDateItineraryAndMedias();
+                toggleDeleteModel();
+                Alert.alert('successfully delete activity');
+                Haptics.notificationAsync(
+                    Haptics.NotificationFeedbackType.Success
+                );
+            }
+        })
+        .catch((err) => {
+            console.error('Fetch error:', err);
+        }); 
     }
 
-    function fetchCurrentDateItinerary() {
+    function fetchCurrentDateItineraryAndMedias() {
         setIsLoadingRows(true);
         const data = {
             travel_id: route.params.travelid,
@@ -239,7 +228,7 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
         }
         searchParams = new URLSearchParams(data).toString();
 
-        let url = process.env.EXPO_PUBLIC_API_URL + 'api/itinerary/get-current-date-itinerary?' + searchParams; 
+        let url = process.env.EXPO_PUBLIC_API_URL + 'api/itinerary/get-current-date-itinerary-and-medias?' + searchParams; 
         fetch(url, {
             method: 'GET',
             mode: 'cors',
@@ -258,22 +247,121 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
                 return response.json();
             } else {
                 setitineraries([{activity_name: 'no activities', start_time: '---', end_time: '---', id: 'none'}]);
+                setImages([]);
                 setIsLoadingRows(false);
             }
         })
-        .then((jsonResponse) => {
+        .then(async (jsonResponse) => {
             if (jsonResponse !== undefined) {
                 setIsLoadingRows(false);
-                if (jsonResponse.result.length === 0) {
-                    setitineraries([{activity_name: 'no activities', start_time: '---', end_time: '---', id: 'none'}]);
-                }else {
-                    setitineraries(jsonResponse.result);
-                }
+                if (Object.keys(jsonResponse).length === 0) {
+                    //set placeholder itinerary and image set
+                    setitineraries([{ activity_name: 'no activities', start_time: '---', end_time: '---', id: 'none' }]);
+                    setImages([{uri: exampleImageUri}]);
+                } else {
+                    const hasItineraries = jsonResponse.hasOwnProperty('itineraries');
+                    const hasMediaData = jsonResponse.hasOwnProperty('media_data');
+
+                    if (hasItineraries && !hasMediaData) {
+                        //only has itineraries - set placeholder image
+                        setImages([{uri: exampleImageUri}]);
+                        setitineraries(jsonResponse.itineraries);
+                    } else if (!hasItineraries && hasMediaData) {
+                        //only has medias
+                        //save base64 to temp file dir to be used
+                        let imageFileUris = [];
+                        let imageUris = []
+                        for (const base64String of jsonResponse.media_data) {
+                            if (base64String !== '') {
+                                const fileName = `${Date.now()}.jpg`; //generate a unique file name
+                                const fileUri = `${FileSystem.cacheDirectory}${fileName}`;
+                                await FileSystem.writeAsStringAsync(
+                                  fileUri,
+                                  base64String,
+                                  { encoding: FileSystem.EncodingType.Base64 }
+                                );
+                                imageFileUris.push({ uri: fileUri });
+                                imageUris.push(fileUri)
+                            }
+                        }
+                        //set temp itineraries and response images
+                        setitineraries([{ activity_name: 'no activities', start_time: '---', end_time: '---', id: 'none' }]);
+                        setImages(imageFileUris);
+                        //set overallimage of the day to the first image
+                        const newOverallArray = [...overalImages];
+                        newOverallArray[currentIndex] = imageUris[0];
+                        setOveralImages(newOverallArray);
+                    } else {
+                        //save base64 to temp file dir to be used
+                        let imageFileUris = [];
+                        let imageUris = []
+                        for (const base64String of jsonResponse.media_data) {
+                            if (base64String !== '') {
+                              const fileName = `${Date.now()}.jpg`; //generate a unique file name
+                              const fileUri = `${FileSystem.cacheDirectory}${fileName}`;
+                              await FileSystem.writeAsStringAsync(
+                                fileUri,
+                                base64String,
+                                { encoding: FileSystem.EncodingType.Base64 }
+                              );
+                              imageFileUris.push({ uri: fileUri });
+                              imageUris.push(fileUri)
+                            }
+                        }
+                        //set itineraries and images
+                        setitineraries(jsonResponse.itineraries);
+                        setImages(imageFileUris);
+                        //set overallimage of the day to the first image
+                        const newOverallArray = [...overalImages];
+                        newOverallArray[currentIndex] = imageUris[0];
+                        setOveralImages(newOverallArray);
+                    }
+                }                
             }
         })
         .catch((err) => {
             console.error('Fetch error:', err);
         });
+    }
+
+    function postMedia() {
+        let url = process.env.EXPO_PUBLIC_API_URL + 'api/medias/add-media';
+        let postData = {
+            base64_image: base64Image,
+            travel_id: route.params.travelid,
+            date: convertToMySQLDateFormat(currentDate)
+        };
+        fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization' : accessToken
+            },
+            redirect: 'follow',
+            referrer: 'client',
+            body: JSON.stringify(postData)
+        })
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+        })
+        .then((jsonResponse) => {
+            if (jsonResponse !== undefined) {
+                fetchCurrentDateItineraryAndMedias();
+                Alert.alert('successfully added image');
+                Haptics.notificationAsync(
+                    Haptics.NotificationFeedbackType.Success
+                );
+            }
+        })
+        .catch((err) => {
+            console.error('Fetch error:', err);
+        }); 
     }
 
     //add itinerary popup
@@ -392,6 +480,73 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
         );
     }
 
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: false,
+          base64: true,
+          quality: 1,
+        });
+    
+        if (!result.canceled) {
+            const base64String = result.assets[0].base64;
+            // Call the function to compress the base64 image
+            compressBase64Image(base64String, 800, 100)
+            .then((compressedBase64) => {
+                // The compressedBase64 contains the compressed image data
+                setBase64Image(compressedBase64);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+            
+            
+        }
+    };
+
+    const compressBase64Image = async (base64String, maxWidth, quality) => {
+        try {
+            const compressedImage1 = await ImageManipulator.manipulateAsync(
+                `data:image/jpeg;base64,${base64String}`,
+                [],
+                { compress: quality / 100 } // Quality is a value between 0 and 1
+              );
+          
+              //calculate the new dimensions while preserving the aspect ratio
+              let initalWidth = compressedImage1.width;
+              let initalHeight = compressedImage1.height;
+              let newHeight = (initalHeight / initalWidth ) * maxWidth
+
+          const compressedImage = await ImageManipulator.manipulateAsync(
+            `data:image/jpeg;base64,${base64String}`,
+            [
+              {
+                resize: {
+                  width: maxWidth,
+                  height: newHeight,
+                },
+              },
+            ],
+            { compress: quality / 100 } // Quality is a value between 0 and 1
+          );
+          return convertImageToBase64(compressedImage.uri);
+        } catch (error) {
+          throw error;
+        }
+    };
+
+    const convertImageToBase64 = async (uri) => {
+        try {
+          const base64String = await FileSystem.readAsStringAsync(uri, {
+            encoding: FileSystem.EncodingType.Base64,
+          });
+          return base64String;
+        } catch (error) {
+          throw error;
+        }
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={[styles.mainView, styles.flexColumn]}>
@@ -401,7 +556,7 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
                 </View>
                 {/* Add */}
                 <View style={[styles.flex1, styles.flexRow, styles.width, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.borderBlackTopBottom, styles.backgroundDarkBlue]}>
-                        <AddButton props={{title: 'Add Photo'}}/>
+                        <AddButton props={{title: 'Add Photo', onPressButton: pickImage}}/>
                         <AddButton props={{title: 'Add Itinerary', onPressButton: toggleAddModel}}/>
                 </View>
                 {/* Itinerary rows */}
