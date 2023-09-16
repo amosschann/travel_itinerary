@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ImageBackground, ActivityIndicator } from 'react-native';
+import { Text, View, Dimensions, TouchableOpacity, ImageBackground } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import styles from '../components/Style';
 const { width } = Dimensions.get('screen');

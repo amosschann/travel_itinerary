@@ -1,7 +1,6 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ImageBackground } from 'react-native';
-import { Cell, Section, TableView } from 'react-native-tableview-simple';
-import { useRoute } from '@react-navigation/native';
+import { SafeAreaView, Text, View, Image, ImageBackground } from 'react-native';
+import { Section, TableView } from 'react-native-tableview-simple';
 import UserProfileRow from '../components/UserProfileRow';
 import styles from '../components/Style';
 

@@ -1,10 +1,9 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button } from 'react-native';
-import { Cell, Section, TableView } from 'react-native-tableview-simple';
+import { Text, View, Dimensions, TouchableOpacity } from 'react-native';
+import { Cell } from 'react-native-tableview-simple';
 import { useAuth } from './AuthContext';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './Style';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from 'expo-secure-store';
 import * as Haptics from 'expo-haptics';
 
@@ -16,11 +15,9 @@ export default function UserProfileRow ({props}){
     const {signOut} = useAuth();
     return (
             <TouchableOpacity onPress={async () => {
-                    console.log('go to ' + props.navigateTo);
                     if (props.navigateTo === 'signOut') {
                         try {
                             await SecureStore.deleteItemAsync('accessToken');
-                            console.log('AsyncStorage data cleared successfully');
                         } catch (error) {
                             console.error('Error clearing AsyncStorage data:', error);
                         }

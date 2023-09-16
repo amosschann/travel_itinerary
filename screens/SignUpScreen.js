@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, TextInput, ImageBackground, KeyboardAvoidingView} from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { SafeAreaView, View, Alert, TextInput, ImageBackground, KeyboardAvoidingView} from 'react-native';
 import { ButtonV1 } from '../components/Buttons';
 import styles from '../components/Style';
-import { useAuth } from '../components/AuthContext';
 import * as Haptics from 'expo-haptics';
 // import { Cell, Section, TableView } from 'react-native-tableview-simple';
 // const { width } = Dimensions.get('screen');
@@ -40,7 +38,6 @@ export default function SignUpScreen ({ navigation }){
             'email': email.toLowerCase(),
             'password': password
         };
-        console.log(url)
 
         fetch(url, {
             method: 'POST',
@@ -68,7 +65,6 @@ export default function SignUpScreen ({ navigation }){
         })
         .then((jsonResponse) => {
             if (jsonResponse !== undefined) {
-                console.log(jsonResponse);
                 alert('Sign Up Success')
                 Haptics.notificationAsync(
                     Haptics.NotificationFeedbackType.Success

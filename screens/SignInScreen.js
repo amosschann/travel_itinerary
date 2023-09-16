@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, TextInput, ImageBackground, KeyboardAvoidingView } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { SafeAreaView, Text, View, TouchableOpacity, Alert, TextInput, ImageBackground, KeyboardAvoidingView } from 'react-native';
 import { ButtonV1 } from '../components/Buttons';
 import styles from '../components/Style';
 import { useAuth } from '../components/AuthContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from 'expo-secure-store';
 import * as Haptics from 'expo-haptics';
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ImageBackground, ActivityIndicator } from 'react-native';
+import { Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import styles from './Style';
 const { width } = Dimensions.get('screen');
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';

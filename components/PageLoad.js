@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ActivityIndicator, ImageBackground } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import styles from './Style';
 
 

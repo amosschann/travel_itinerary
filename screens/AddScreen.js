@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, TextInput, ImageBackground, KeyboardAvoidingView} from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { SafeAreaView, Text, View, Alert, TextInput, ImageBackground, KeyboardAvoidingView} from 'react-native';
 import { ButtonV1 } from '../components/Buttons';
 import styles from '../components/Style';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -70,7 +69,6 @@ export default function AddScreen ({ navigation, props }){
         })
         .then((jsonResponse) => {
             if (jsonResponse !== undefined) {
-                console.log(jsonResponse)
                 Alert.alert('new travel created');
                 Haptics.notificationAsync(
                     Haptics.NotificationFeedbackType.Success

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ImageBackground, ActivityIndicator, TextInput } from 'react-native';
+import { SafeAreaView, Text, View, Image, TouchableOpacity, Alert, TextInput } from 'react-native';
 import styles from '../components/Style';
 import Modal from "react-native-modal";
 import ItineraryTableRows from '../components/ItineraryTableRows';

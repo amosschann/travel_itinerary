@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ImageBackground } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import styles from '../components/Style';
 import TravelTable from '../components/TravelTable'
 import { getAccessToken } from '../helpers/AccessTokenHelper';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ActivityIndicator } from 'react-native';
+import { Text, View, Dimensions, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Cell, Section, TableView } from 'react-native-tableview-simple';
 import styles from './Style';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';

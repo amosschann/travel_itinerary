@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert, Button, ActivityIndicator, ImageBackground } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { SafeAreaView, Text, View, ScrollView } from 'react-native';
 import styles from '../components/Style';
 import TravelTable from '../components/TravelTable';
 import PageLoad from '../components/PageLoad';
