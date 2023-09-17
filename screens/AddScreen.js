@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, View, Alert, TextInput, ImageBackground, KeyboardAvoidingView} from 'react-native';
+import { SafeAreaView, Text, View, Alert, TextInput, ImageBackground, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
 import { ButtonV1 } from '../components/Buttons';
 import styles from '../components/Style';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -16,6 +16,8 @@ export default function AddScreen ({ navigation, props }){
     const [returnDate, setReturnDate] = useState(new Date());
     const [countryPickerVisible, setCountryPickerVisible ] = useState(false);
     const [accessToken, setAccessToken] = useState('');
+    const [showDTP1, setShowDTP1] = useState(false);
+    const [showDTP2, setShowDTP2] = useState(false);
 
     useEffect(() => {
         getAccessToken().then(accessToken => {
@@ -160,6 +162,8 @@ export default function AddScreen ({ navigation, props }){
                             <View style={[styles.flex1]}/>
                         </View>
                         <View style={[styles.flex3, styles.flexRow]}>
+                        {Platform.OS === "ios"? 
+                        <>
                             <View style={[styles.flex1]}/>
                             <View style={[styles.flex5, styles.borderRadiusAllBlack10, styles.width100, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.textAlignCenter, styles.marginBottomTop5]}>
                                 <DateTimePicker
@@ -170,6 +174,23 @@ export default function AddScreen ({ navigation, props }){
                                 />
                             </View>
                             <View style={[styles.flex1]}/>
+                        </>
+                        :
+                        <TouchableOpacity style={[styles.flex1, styles.flexRow]} onPress={()=> {setShowDTP1(true)}}>
+                            <View style={[styles.flex1]}/>
+                            <View style={[styles.flex5, styles.borderRadiusAllBlack10, styles.width100, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.textAlignCenter, styles.marginBottomTop5]}>
+                                {showDTP1 && <DateTimePicker
+                                    value={departureDate}
+                                    onChange={(evt, selectedDate) => {
+                                        setDepartureDate(selectedDate);
+                                        setShowDTP1(false);
+                                    }}
+                                />}
+                                <Text>{departureDate.toISOString().split('T')[0]}</Text>
+                            </View>
+                            <View style={[styles.flex1]}/>
+                            </TouchableOpacity>
+                        }
                         </View>
                         
                     </View>
@@ -181,6 +202,8 @@ export default function AddScreen ({ navigation, props }){
                             <View style={[styles.flex1]}/>
                         </View>
                         <View style={[styles.flex3, styles.flexRow]}>
+                            {Platform.OS === "ios"? 
+                            <>
                             <View style={[styles.flex1]}/>
                             <View style={[styles.flex5, styles.borderRadiusAllBlack10, styles.width100, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.textAlignCenter, styles.marginBottomTop5]}>
                                 <DateTimePicker
@@ -192,6 +215,25 @@ export default function AddScreen ({ navigation, props }){
                                 />
                             </View>
                             <View style={[styles.flex1]}/>
+                            </>
+                            :
+                            <TouchableOpacity style={[styles.flex1, styles.flexRow]} onPress={()=> {setShowDTP2(true)}}>
+                            <View style={[styles.flex1]}/>
+                            <View style={[styles.flex5, styles.borderRadiusAllBlack10, styles.width100, styles.justifyHorizontalCenter, styles.justifyVerticalCenter, styles.textAlignCenter, styles.marginBottomTop5]}>
+                                {showDTP2 && <DateTimePicker
+                                    value={returnDate}
+                                    minimumDate={departureDate}
+                                    onChange={(evt, selectedDate) => {
+                                        setReturnDate(selectedDate);
+                                        setShowDTP2(false);
+                                    }}
+                                />}
+                                <Text>{returnDate.toISOString().split('T')[0]}</Text>
+                            </View>
+                            <View style={[styles.flex1]}/>
+                            </TouchableOpacity>
+                            }
+                            
                         </View>
                     </View>
 

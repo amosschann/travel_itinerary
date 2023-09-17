@@ -21,6 +21,8 @@ import * as ImageManipulator from 'expo-image-manipulator';
 export default function ItineraryScreen ({ navigation: { navigate }, route }){
     const image1 = require('../assets/itineraryImage3.jpg');
     const exampleImageUri = Image.resolveAssetSource(image1).uri
+    const [showDTP1, setShowDTP1] = useState(false);
+    const [showDTP2, setShowDTP2] = useState(false);
     const [accessToken, setAccessToken] = useState('');
     const [initialCurrenDateLoad, setInitialCurrentDateLoad] = useState(true);
     const [startTimeForm, setStartTimeForm] = useState(new Date());
@@ -399,7 +401,8 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
                             <View style={[styles.flex1, styles.justifyHorizontalEnd, styles.justifyVerticalCenter]}>
                                 <Text>Start Time</Text>
                             </View>
-                            <View style={[styles.flex1, styles.justifyHorizontalStart]}>
+                            <View style={[styles.flex1, styles.justifyHorizontalStart, styles.justifyVerticalCenter]}>
+                            {Platform.OS === "ios"? 
                             <DateTimePicker
                                 value={startTimeForm}
                                 mode="time"
@@ -407,6 +410,19 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
                                     setStartTimeForm(selectedTime);
                                 }}
                             />
+                            :
+                            <TouchableOpacity style={[styles.flex1, styles.flexRow, styles.justifyHorizontalStart, styles.justifyVerticalCenter]} onPress={()=> {setShowDTP1(true)}}>
+                                {showDTP1 && <DateTimePicker
+                                value={startTimeForm}
+                                mode="time"
+                                onChange={(evt, selectedTime) => {
+                                    setStartTimeForm(selectedTime);
+                                    setShowDTP1(false);
+                                }}
+                                />}
+                                <Text style={[styles.textAlignCenter]}>{convertToMySQLTime(startTimeForm)}</Text>
+                            </TouchableOpacity>
+                            }
                             </View>
                         </View>
 
@@ -414,7 +430,8 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
                             <View style={[styles.flex1, styles.justifyHorizontalEnd, styles.justifyVerticalCenter]}>
                                 <Text>End Time</Text>
                             </View>
-                            <View style={[styles.flex1, styles.justifyHorizontalStart]}>
+                            <View style={[styles.flex1, styles.justifyHorizontalStart, styles.justifyVerticalCenter]}>
+                            {Platform.OS === "ios"? 
                                 <DateTimePicker
                                     style={[styles.justifyHorizontalCenter]}
                                     value={endTimeForm}
@@ -422,8 +439,24 @@ export default function ItineraryScreen ({ navigation: { navigate }, route }){
                                     minimumDate={startTimeForm}
                                     onChange={(evt, selectedTime) => {
                                         setEndTimeForm(selectedTime);
+                                        
                                     }}
                                 />
+                                :
+                                <TouchableOpacity style={[styles.flex1, styles.flexRow, styles.justifyHorizontalStart, styles.justifyVerticalCenter]} onPress={()=> {setShowDTP2(true)}}>
+                                    {showDTP2 && <DateTimePicker
+                                    style={[styles.justifyHorizontalCenter]}
+                                    value={endTimeForm}
+                                    mode="time"
+                                    minimumDate={startTimeForm}
+                                    onChange={(evt, selectedTime) => {
+                                        setEndTimeForm(selectedTime);
+                                        setShowDTP1(false);
+                                    }}
+                                />}
+                                    <Text>{convertToMySQLTime(startTimeForm)}</Text>
+                                </TouchableOpacity>
+                                }
                             </View>
                         </View>
 
