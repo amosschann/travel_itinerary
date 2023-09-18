@@ -1,3 +1,7 @@
+EXPO START
+click on the links provided / use it in the expo app
+
+
 LOCAL BUILD INSTALLATION INSTRUCTIONS
 1. install patch package - npm install -g patch-package
 2. ensure that patches folder is in the main dir

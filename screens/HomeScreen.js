@@ -69,9 +69,25 @@ export default function HomeScreen({ navigation: { navigate }, props }){
                 let upcomingTravelResponse = jsonResponse.upcomingTravel;
                 if (completedTravelResponse !== undefined) {
                     setCompletedResponse(completedTravelResponse);
+                } else {
+                    setCompletedResponse({
+                        title: 'No Upcoming Travels',
+                        name: "Add Your Travels",
+                        start_date: '--/--/--',
+                        end_date:'--/--/--',
+                        id: 'default'
+                    })
                 }
-                if (upcomingResponse !== undefined) {
+                if (upcomingTravelResponse !== undefined) {
                     setUpcomingResponse(upcomingTravelResponse);
+                } else {
+                    setUpcomingResponse({
+                        title: 'No Upcoming Travels',
+                        name: "Add Your Travels",
+                        start_date: '--/--/--',
+                        end_date:'--/--/--',
+                        id: 'default'
+                    })
                 }
             }
         })
